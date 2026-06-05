@@ -1,0 +1,2278 @@
+<!DOCTYPE html>
+<!-- PK Investor Quiz v1.2 — 2026-05-15 — Email capture moved post-questions, firstName/lastName split, intl-tel-input -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Property Kickstart — Investor Profile Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+<style>
+:root {
+--pk-red: #d46a53;
+--pk-navy: #2a4d69;
+--pk-light: #ededed;
+--pk-red-dark: #b85840;
+--pk-navy-dark: #1e3a50;
+--pk-cream: #faf9f7;
+--pk-text: #1a1a1a;
+--pk-muted: #6b7280;
+--radius: 12px;
+--transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+- , *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+font-family: 'DM Sans', sans-serif;
+background: var(--pk-cream);
+color: var(--pk-text);
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+}
+/* ── HEADER ── */
+header {
+background: var(--pk-navy);
+padding: 18px 32px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+border-bottom: 1px solid rgba(255,255,255,0.06);
+color: #fff;
+}
+header p { color: rgba(255,255,255,0.55); font-size: 0.82rem; font-weight: 400; letter-spacing: 0.03em; }
+.logo { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: #fff; }
+.logo span { color: var(--pk-red); }
+.header-logo-group {
+display: flex;
+align-items: center;
+gap: 12px;
+}
+.header-logo {
+height: 46px;
+width: auto;
+border-radius: 6px;
+display: block;
+object-fit: contain;
+}
+/* Fallback text logo — shown if img fails */
+.header-logo-fallback {
+display: flex;
+flex-direction: column;
+line-height: 1.15;
+}
+.header-logo-fallback .hl-main {
+font-family: 'Playfair Display', serif;
+font-size: 1.05rem;
+font-weight: 700;
+color: #fff;
+letter-spacing: -0.01em;
+}
+.header-logo-fallback .hl-sub {
+font-size: 0.6rem;
+font-weight: 600;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(--pk-red);
+margin-top: 1px;
+}
+header .hdr-label {
+font-size: 0.72rem;
+color: rgba(255,255,255,0.4);
+font-weight: 400;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+}
+/* ── PROGRESS ── */
+.progress-wrap {
+background: var(--pk-navy-dark);
+padding: 0 32px 18px;
+position: sticky;
+top: 0;
+z-index: 100;
+border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.progress-bar-track {
+background: rgba(255,255,255,0.08);
+border-radius: 100px;
+height: 4px;
+overflow: hidden;
+}
+.progress-bar-fill {
+background: linear-gradient(90deg, var(--pk-red), #e8856e);
+height: 100%;
+border-radius: 100px;
+transition: width 0.4s ease;
+width: 0%;
+}
+.progress-label {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding-bottom: 10px;
+font-size: 0.72rem;
+font-weight: 500;
+color: rgba(255,255,255,0.5);
+letter-spacing: 0.04em;
+padding-top: 14px;
+}
+.progress-microcopy {
+font-size: 0.68rem;
+color: rgba(255,255,255,0.3);
+font-weight: 300;
+text-align: center;
+margin-top: 7px;
+letter-spacing: 0.03em;
+}
+/* ── QUIZ CONTAINER ── */
+.quiz-outer {
+flex: 1;
+display: flex;
+align-items: flex-start;
+justify-content: center;
+padding: 40px 20px 80px;
+}
+.quiz-card {
+background: #fff;
+border-radius: 20px;
+box-shadow: 0 4px 60px rgba(42,77,105,0.1), 0 1px 3px rgba(42,77,105,0.06);
+width: 100%;
+max-width: 640px;
+overflow: visible;
+}
+.quiz-card .step-header { border-radius: 20px 20px 0 0; overflow: hidden; }
+/* ── STEPS ── */
+.step { display: none; }
+.step.active { display: block; animation: slideIn 0.3s ease; }
+@keyframes slideIn {
+from { opacity: 0; transform: translateY(12px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+.step-header {
+background:
+repeating-linear-gradient(-45deg, transparent 0px, transparent 28px, rgba(255,255,255,0.018) 28px, rgba(255,255,255,0.018) 29px),
+linear-gradient(135deg, var(--pk-navy) 0%, #1e3a50 100%);
+padding: 36px 40px 28px;
+position: relative;
+overflow: hidden;
+}
+.step-header::after {
+content: '';
+position: absolute;
+right: -30px;
+top: -30px;
+width: 150px;
+height: 150px;
+border-radius: 50%;
+background: rgba(212,106,83,0.12);
+}
+.step-tag {
+font-size: 0.7rem;
+font-weight: 600;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(--pk-red);
+margin-bottom: 10px;
+display: block;
+}
+.step-title {
+font-family: 'Playfair Display', serif;
+font-size: 1.55rem;
+font-weight: 700;
+color: #fff;
+line-height: 1.25;
+}
+.step-subtitle {
+margin-top: 8px;
+font-size: 0.88rem;
+font-weight: 300;
+color: rgba(255,255,255,0.65);
+line-height: 1.5;
+}
+.step-body { padding: 32px 40px 36px; }
+/* ── FORM FIELDS ── */
+.field-group { margin-bottom: 20px; }
+label {
+display: block;
+font-size: 0.82rem;
+font-weight: 600;
+letter-spacing: 0.03em;
+color: var(--pk-navy);
+margin-bottom: 7px;
+text-transform: uppercase;
+}
+input\[type="text"\],
+input\[type="email"\],
+input\[type="tel"\],
+textarea,
+select {
+width: 100%;
+padding: 14px 16px;
+border: 2px solid var(--pk-light);
+border-radius: var(--radius);
+font-family: 'DM Sans', sans-serif;
+font-size: 0.95rem;
+font-weight: 400;
+color: var(--pk-text);
+background: var(--pk-cream);
+transition: border-color var(--transition), box-shadow var(--transition);
+outline: none;
+-webkit-appearance: none;
+appearance: none;
+}
+input:focus, textarea:focus, select:focus {
+border-color: var(--pk-navy);
+background: #fff;
+box-shadow: 0 0 0 4px rgba(42,77,105,0.08);
+}
+textarea { min-height: 100px; resize: vertical; line-height: 1.5; }
+select {
+background-image: url("data:image/svg+xml,%3Csvg xmlns='[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%232a4d69' d='M0 0l6 8 6-8z'/%3E%3C/svg%3E");
+background-repeat: no-repeat;
+background-position: right 16px center;
+padding-right: 40px;
+cursor: pointer;
+}
+.field-hint {
+font-size: 0.75rem;
+color: var(--pk-muted);
+font-weight: 300;
+margin-top: 5px;
+}
+
+/* ── Custom phone selector ── */
+.pk-phone-wrap {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+.pk-dial-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  background: var(--pk-cream);
+  border: 2px solid var(--pk-light);
+  border-right: none;
+  border-radius: var(--radius) 0 0 var(--radius);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--pk-text);
+  white-space: nowrap;
+  transition: border-color var(--transition), background var(--transition);
+  min-width: 90px;
+}
+.pk-dial-btn:hover { border-color: var(--pk-navy); background: #fff; }
+.pk-dial-arrow { font-size: 0.7rem; color: var(--pk-muted); }
+.pk-phone-input {
+  flex: 1;
+  border-left: none !important;
+  border-radius: 0 var(--radius) var(--radius) 0 !important;
+}
+.pk-dial-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 9999;
+  background: #fff;
+  border: 2px solid var(--pk-light);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 30px rgba(42,77,105,0.15);
+  max-height: 240px;
+  overflow-y: auto;
+  width: 280px;
+  margin-top: 4px;
+}
+.pk-dial-option {
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pk-text);
+}
+.pk-dial-option:hover { background: #fff7f5; }
+.pk-dial-code { margin-left: auto; color: var(--pk-muted); font-size: 0.8rem; }
+#phone-field-wrap { position: relative; }
+
+/* ── OPTION CARDS ── */
+.options-grid { display: grid; gap: 10px; }
+.options-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.options-grid.cols-1 { grid-template-columns: 1fr; }
+.option-card {
+border: 2px solid var(--pk-light);
+border-radius: var(--radius);
+padding: 14px 18px;
+cursor: pointer;
+display: flex;
+align-items: center;
+gap: 12px;
+background: var(--pk-cream);
+transition: all var(--transition);
+user-select: none;
+position: relative;
+}
+.option-card:hover {
+border-color: var(--pk-navy);
+background: #fff;
+transform: translateY(-1px);
+box-shadow: 0 4px 16px rgba(42,77,105,0.1);
+}
+.option-card.selected {
+border-color: var(--pk-red);
+background: #fff7f5;
+box-shadow: 0 0 0 4px rgba(212,106,83,0.08);
+}
+.option-dot {
+width: 20px;
+height: 20px;
+border-radius: 50%;
+border: 2px solid #ccc;
+flex-shrink: 0;
+transition: all var(--transition);
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.option-card.selected .option-dot { background: var(--pk-red); border-color: var(--pk-red); }
+.option-dot::after {
+content: '';
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: #fff;
+opacity: 0;
+transition: opacity var(--transition);
+}
+.option-card.selected .option-dot::after { opacity: 1; }
+.option-label { font-size: 0.92rem; font-weight: 500; line-height: 1.3; color: var(--pk-text); }
+.option-label small { display: block; font-size: 0.78rem; font-weight: 300; color: var(--pk-muted); margin-top: 2px; }
+.option-card.multi .option-dot { border-radius: 5px; }
+.option-card.multi.selected .option-dot::after {
+content: '\\2713';
+font-size: 11px;
+font-weight: 700;
+background: none;
+width: auto;
+height: auto;
+}
+.name-row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 12px;
+margin-bottom: 20px;
+}
+.name-row .field-group { margin-bottom: 0; }
+@media (max-width: 420px) { .name-row { grid-template-columns: 1fr; } }
+/* ── BUTTONS ── */
+.btn-row {
+display: flex;
+gap: 12px;
+align-items: center;
+margin-top: 32px;
+flex-wrap: wrap;
+}
+.btn {
+padding: 14px 28px;
+border-radius: var(--radius);
+font-family: 'DM Sans', sans-serif;
+font-size: 0.9rem;
+font-weight: 600;
+letter-spacing: 0.02em;
+cursor: pointer;
+border: none;
+transition: all var(--transition);
+display: inline-flex;
+align-items: center;
+gap: 8px;
+}
+.btn-primary { background: var(--pk-red); color: #fff; }
+.btn-primary:hover { background: var(--pk-red-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212,106,83,0.35); }
+.btn-secondary { background: transparent; color: var(--pk-muted); border: 2px solid var(--pk-light); }
+.btn-secondary:hover { border-color: var(--pk-navy); color: var(--pk-navy); }
+.btn-cta { background: var(--pk-navy); color: #fff; font-size: 1rem; padding: 16px 36px; width: 100%; justify-content: center; }
+.btn-cta:hover { background: var(--pk-navy-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(42,77,105,0.3); }
+.btn-cta-secondary { background: transparent; color: var(--pk-navy); border: 2px solid var(--pk-navy); font-size: 0.9rem; padding: 13px 28px; width: 100%; justify-content: center; margin-top: 10px; }
+.btn-cta-secondary:hover { background: var(--pk-navy); color: #fff; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+/* ── ERROR ── */
+.error-msg { color: #c0392b; font-size: 0.8rem; font-weight: 500; margin-top: 6px; display: none; }
+.error-msg.show { display: block; }
+/* ── CONSENT ── */
+.consent-wrap {
+display: flex;
+align-items: flex-start;
+gap: 12px;
+margin-top: 20px;
+padding: 16px;
+background: var(--pk-cream);
+border-radius: var(--radius);
+border: 2px solid var(--pk-light);
+cursor: pointer;
+transition: border-color var(--transition);
+}
+.consent-wrap:hover { border-color: var(--pk-navy); }
+.consent-wrap.checked { border-color: var(--pk-red); background: #fff7f5; }
+.consent-box {
+width: 20px;
+height: 20px;
+border-radius: 5px;
+border: 2px solid #ccc;
+flex-shrink: 0;
+margin-top: 1px;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all var(--transition);
+}
+.consent-wrap.checked .consent-box { background: var(--pk-red); border-color: var(--pk-red); }
+.consent-wrap.checked .consent-box::after { content: '\\2713'; font-size: 12px; font-weight: 700; color: #fff; }
+.consent-text { font-size: 0.85rem; font-weight: 400; color: var(--pk-text); line-height: 1.5; }
+.consent-text small { display: block; font-size: 0.75rem; color: var(--pk-muted); margin-top: 2px; font-weight: 300; }
+/* ── RESULTS ── */
+#step-result { display: none; }
+#step-result.active { display: block; }
+.result-header {
+background:
+repeating-linear-gradient(-45deg, transparent 0px, transparent 28px, rgba(255,255,255,0.018) 28px, rgba(255,255,255,0.018) 29px),
+linear-gradient(135deg, var(--pk-navy) 0%, #1b3a56 100%);
+padding: 52px 40px 40px;
+text-align: center;
+position: relative;
+overflow: hidden;
+}
+.result-header::before { content: ''; position: absolute; top: -60px; left: -60px; width: 200px; height: 200px; border-radius: 50%; background: rgba(212,106,83,0.08); }
+.result-header::after { content: ''; position: absolute; bottom: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(212,106,83,0.06); }
+.result-badge { display: inline-block; background: rgba(212,106,83,0.18); border: 1px solid rgba(212,106,83,0.4); color: #ffb0a0; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 16px; border-radius: 100px; margin-bottom: 20px; position: relative; z-index: 1; }
+.result-archetype {
+font-family: 'Playfair Display', serif;
+font-size: 2rem;
+font-weight: 900;
+color: #fff;
+line-height: 1.15;
+letter-spacing: -0.02em;
+position: relative;
+z-index: 1;
+animation: archReveal 0.6s ease both;
+}
+@keyframes archReveal {
+from { opacity: 0; transform: translateY(10px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+.result-tagline { margin-top: 10px; font-style: italic; font-size: 0.9rem; font-weight: 300; color: rgba(255,255,255,0.65); position: relative; z-index: 1; }
+.readiness-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); border-radius: 100px; padding: 8px 18px; margin-top: 20px; position: relative; z-index: 1; }
+.readiness-pill .score-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #fff; }
+.readiness-pill .score-label { font-size: 0.78rem; font-weight: 300; color: rgba(255,255,255,0.6); line-height: 1.3; text-align: left; }
+.result-body { padding: 36px 40px 40px; }
+.result-description { font-size: 0.95rem; line-height: 1.7; color: #444; margin-bottom: 28px; }
+.result-cta-box { background: var(--pk-cream); border-radius: 16px; padding: 28px 28px 24px; border: 2px solid var(--pk-light); margin-bottom: 24px; }
+.result-cta-box h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--pk-navy); margin-bottom: 8px; }
+.result-cta-box p { font-size: 0.87rem; font-weight: 300; color: var(--pk-muted); line-height: 1.6; margin-bottom: 20px; }
+.hot-badge { display: inline-flex; align-items: center; gap: 6px; background: #fff3f0; border: 1px solid #fbbcb0; border-radius: 100px; font-size: 0.75rem; font-weight: 600; color: var(--pk-red); letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 12px; margin-bottom: 14px; }
+.result-urgency { text-align: center; font-size: 0.8rem; color: var(--pk-muted); font-weight: 300; font-style: italic; margin-top: 14px; }
+.result-steps-section { margin-top: 24px; border-top: 1px solid var(--pk-light); padding-top: 24px; }
+.result-steps-section h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--pk-navy); margin-bottom: 16px; }
+.result-step-item { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+.result-step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--pk-navy); color: #fff; font-size: 0.78rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.result-step-text { font-size: 0.88rem; color: var(--pk-text); line-height: 1.5; font-weight: 400; }
+.deals-preview { margin-top: 24px; padding: 24px 28px; background: var(--pk-navy); border-radius: 16px; }
+.deals-preview h4 { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 14px; }
+.deal-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.deal-chip { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 10px 14px; flex: 1; min-width: 130px; }
+.deal-chip-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pk-red); margin-bottom: 4px; }
+.deal-chip-value { font-size: 0.85rem; font-weight: 500; color: #fff; line-height: 1.3; }
+/* ── INTRO — v0.5 Premium Dark ── */
+.intro-hero {
+position: relative;
+overflow: hidden;
+min-height: 520px;
+display: flex;
+align-items: center;
+}
+/* Layered atmospheric backgrounds */
+.intro-hero-bg {
+position: absolute;
+inset: 0;
+z-index: 0;
+pointer-events: none;
+}
+.intro-hero-bg-base {
+position: absolute;
+inset: 0;
+background: linear-gradient(160deg, #18303f 0%, #1e3a50 45%, #0f2030 100%);
+}
+.intro-hero-bg-glow1 {
+position: absolute;
+top: -100px; right: -60px;
+width: 500px; height: 500px;
+border-radius: 50%;
+background: radial-gradient(circle, rgba(212,106,83,0.13) 0%, transparent 65%);
+animation: glowDrift 8s ease-in-out infinite;
+}
+.intro-hero-bg-glow2 {
+position: absolute;
+bottom: -160px; left: -80px;
+width: 420px; height: 420px;
+border-radius: 50%;
+background: radial-gradient(circle, rgba(42,77,105,0.45) 0%, transparent 65%);
+animation: glowDrift 12s ease-in-out infinite reverse;
+}
+.intro-hero-bg-lines {
+position: absolute;
+inset: 0;
+background-image:
+repeating-linear-gradient(-55deg,
+transparent 0px, transparent 60px,
+rgba(255,255,255,0.012) 60px, rgba(255,255,255,0.012) 61px);
+}
+.intro-hero-bg-accent {
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent 0%, var(--pk-red) 50%, transparent 100%);
+opacity: 0.6;
+}
+@keyframes glowDrift {
+0%, 100% { transform: translate(0,0) scale(1); }
+50% { transform: translate(16px,-16px) scale(1.04); }
+}
+/* Split layout: text left, visual right */
+.intro-hero-inner {
+display: flex;
+align-items: center;
+gap: 40px;
+position: relative;
+z-index: 1;
+padding: 56px 40px 52px;
+width: 100%;
+}
+.intro-hero-text { flex: 1; }
+/* Eyebrow pill */
+.intro-eyebrow {
+display: inline-flex;
+align-items: center;
+gap: 7px;
+background: rgba(212,106,83,0.18);
+border: 1px solid rgba(212,106,83,0.35);
+color: #ffa991;
+font-size: 0.68rem;
+font-weight: 600;
+letter-spacing: 0.11em;
+text-transform: uppercase;
+padding: 5px 13px;
+border-radius: 100px;
+margin-bottom: 18px;
+}
+.intro-eyebrow::before {
+content: '';
+width: 6px;
+height: 6px;
+border-radius: 50%;
+background: #ff9b84;
+animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+0%, 100% { opacity: 1; transform: scale(1); }
+50% { opacity: 0.5; transform: scale(0.8); }
+}
+.intro-title {
+font-family: 'Cormorant Garamond', serif;
+font-size: clamp(2rem, 4.5vw, 3.2rem);
+font-weight: 600;
+color: #fff;
+line-height: 1.1;
+margin-bottom: 16px;
+letter-spacing: -0.01em;
+}
+.intro-title em {
+font-style: italic;
+color: rgba(255,180,160,0.9);
+}
+/* Red underline accent on last span */
+.intro-title .ua {
+position: relative;
+white-space: nowrap;
+}
+.intro-title .ua::after {
+content: '';
+position: absolute;
+left: 0; bottom: -3px;
+right: 0; height: 2px;
+background: linear-gradient(90deg, var(--pk-red), transparent);
+border-radius: 2px;
+}
+.intro-sub {
+font-size: 0.9rem;
+font-weight: 300;
+color: rgba(255,255,255,0.6);
+line-height: 1.65;
+margin-bottom: 28px;
+max-width: 400px;
+}
+.intro-cta-btn {
+font-size: 1rem;
+padding: 15px 28px;
+width: 100%;
+justify-content: center;
+border-radius: 10px;
+letter-spacing: 0.01em;
+}
+/* Trust bar */
+.hero-trust-bar {
+display: flex;
+gap: 0;
+margin-top: 16px;
+flex-wrap: wrap;
+border-top: 1px solid rgba(255,255,255,0.08);
+padding-top: 16px;
+}
+.trust-item {
+display: flex;
+align-items: center;
+gap: 6px;
+padding-right: 18px;
+margin-right: 18px;
+border-right: 1px solid rgba(255,255,255,0.12);
+}
+.trust-item:last-child { border-right: none; margin-right: 0; }
+.trust-check {
+width: 16px;
+height: 16px;
+border-radius: 50%;
+background: rgba(212,106,83,0.25);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 9px;
+color: #ffa991;
+font-weight: 700;
+flex-shrink: 0;
+}
+.trust-item span {
+font-size: 0.75rem;
+color: rgba(255,255,255,0.45);
+font-weight: 400;
+}
+/* Score ring visual — premium with orbit */
+.intro-hero-visual {
+flex-shrink: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 20px;
+}
+.score-ring-wrap {
+position: relative;
+width: 180px;
+height: 180px;
+}
+/* Orbit track ring */
+.score-ring-orbit {
+position: absolute;
+inset: -16px;
+border-radius: 50%;
+border: 1px dashed rgba(212,106,83,0.18);
+animation: orbitSpin 10s linear infinite;
+pointer-events: none;
+}
+/* Orbit ball — sits at top of the ring element so it travels with it */
+.score-ring-orbit::before {
+content: '';
+position: absolute;
+top: 4px;
+left: 50%;
+transform: translateX(-50%);
+width: 9px;
+height: 9px;
+border-radius: 50%;
+background: var(--pk-red);
+box-shadow: 0 0 10px rgba(212,106,83,0.7), 0 0 20px rgba(212,106,83,0.3);
+}
+@keyframes orbitSpin { to { transform: rotate(360deg); } }
+/* Outer glow pulse */
+.score-ring-glow {
+position: absolute;
+inset: -8px;
+border-radius: 50%;
+border: 1px solid rgba(212,106,83,0.1);
+animation: ringPulse 3s ease-in-out infinite;
+}
+@keyframes ringPulse {
+0%, 100% { opacity: 1; transform: scale(1); }
+50% { opacity: 0.4; transform: scale(1.04); }
+}
+/* Main ring */
+.score-ring {
+width: 180px;
+height: 180px;
+border-radius: 50%;
+background: conic-gradient(
+#d46a53 0deg,
+#e8856e 160deg,
+rgba(255,255,255,0.05) 210deg,
+rgba(255,255,255,0.03) 360deg
+);
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+box-shadow:
+0 0 0 1px rgba(212,106,83,0.1),
+0 0 50px rgba(212,106,83,0.16),
+inset 0 0 40px rgba(0,0,0,0.2);
+animation: ringReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes ringReveal {
+from { opacity: 0; transform: scale(0.8) rotate(-30deg); }
+to   { opacity: 1; transform: scale(1) rotate(0); }
+}
+/* Donut hole */
+.score-ring::after {
+content: '';
+position: absolute;
+inset: 20px;
+border-radius: 50%;
+background: linear-gradient(145deg, #18303f, #0f2030);
+}
+/* Inner content */
+.score-ring-content {
+position: relative;
+z-index: 2;
+text-align: center;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.srl { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); display: block; margin-bottom: 1px; }
+.srn { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 700; color: rgba(255,255,255,0.12); display: block; line-height: 1; filter: blur(4px); }
+.srm { font-size: 0.68rem; color: rgba(255,255,255,0.2); display: block; margin-top: 1px; }
+/* "Discover yours" label below ring */
+.score-ring-caption {
+text-align: center;
+font-size: 0.68rem;
+font-weight: 500;
+color: rgba(255,255,255,0.28);
+letter-spacing: 0.06em;
+text-transform: uppercase;
+}
+/* Mini outcome cards */
+.intro-mini-outcomes {
+display: flex;
+flex-direction: column;
+gap: 7px;
+width: 100%;
+}
+.intro-mini-card {
+display: flex;
+align-items: center;
+gap: 10px;
+padding: 10px 13px;
+background: rgba(255,255,255,0.03);
+border: 1px solid rgba(255,255,255,0.07);
+border-radius: 10px;
+transition: all 0.2s;
+animation: fadeUpCard 0.5s ease both;
+}
+.intro-mini-card:nth-child(1) { animation-delay: 0.8s; }
+.intro-mini-card:nth-child(2) { animation-delay: 0.95s; }
+.intro-mini-card:nth-child(3) { animation-delay: 1.1s; }
+@keyframes fadeUpCard {
+from { opacity: 0; transform: translateY(10px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+.intro-mini-card:hover {
+border-color: rgba(212,106,83,0.2);
+background: rgba(212,106,83,0.04);
+}
+.intro-mini-icon {
+width: 30px; height: 30px;
+border-radius: 8px;
+background: rgba(212,106,83,0.1);
+border: 1px solid rgba(212,106,83,0.15);
+display: flex; align-items: center; justify-content: center;
+font-size: 0.85rem;
+flex-shrink: 0;
+}
+.intro-mini-text strong {
+display: block;
+font-size: 0.78rem;
+font-weight: 600;
+color: rgba(255,255,255,0.85);
+}
+.intro-mini-text span {
+font-size: 0.7rem;
+font-weight: 300;
+color: rgba(255,255,255,0.35);
+}
+/* ── INTRO BODY (discover section) — v0.5 ── */
+.intro-body {
+padding: 36px 40px 40px;
+text-align: center;
+background: rgba(42,77,105,0.06);
+border-top: 1px solid rgba(255,255,255,0.04);
+}
+.intro-body-eyebrow {
+font-size: 0.68rem;
+font-weight: 600;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--pk-red);
+margin-bottom: 8px;
+}
+.intro-body h2 {
+font-family: 'Playfair Display', serif;
+font-size: 1.25rem;
+font-weight: 700;
+color: var(--pk-navy);
+margin-bottom: 22px;
+line-height: 1.3;
+}
+/* Discover cards — 3 outcomes */
+.discover-cards {
+display: flex;
+flex-direction: column;
+gap: 10px;
+margin-bottom: 28px;
+text-align: left;
+}
+.discover-card {
+display: flex;
+align-items: flex-start;
+gap: 14px;
+padding: 16px 18px;
+background: var(--pk-cream);
+border-radius: var(--radius);
+border: 1.5px solid var(--pk-light);
+transition: border-color var(--transition), box-shadow var(--transition);
+}
+.discover-card:hover {
+border-color: rgba(212,106,83,0.3);
+box-shadow: 0 2px 12px rgba(212,106,83,0.07);
+}
+.discover-icon {
+width: 36px;
+height: 36px;
+border-radius: 9px;
+background: linear-gradient(135deg, rgba(212,106,83,0.12), rgba(212,106,83,0.06));
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1rem;
+flex-shrink: 0;
+border: 1px solid rgba(212,106,83,0.15);
+}
+.discover-card-content strong {
+display: block;
+font-size: 0.88rem;
+font-weight: 600;
+color: var(--pk-navy);
+margin-bottom: 3px;
+}
+.discover-card-content p {
+font-size: 0.8rem;
+color: var(--pk-muted);
+line-height: 1.5;
+margin: 0;
+font-weight: 300;
+}
+.intro-body-cta {
+width: 100%;
+justify-content: center;
+font-size: 1rem;
+padding: 15px;
+border-radius: 10px;
+}
+.intro-trust {
+font-size: 0.77rem;
+color: var(--pk-muted);
+font-weight: 300;
+margin-top: 12px;
+}
+/* ── INTRO BODY sub-text ── */
+.intro-body-sub {
+font-size: 0.88rem;
+color: var(--pk-muted);
+font-weight: 300;
+margin-bottom: 24px;
+line-height: 1.6;
+}
+/* ── HOW IT WORKS steps ── */
+.intro-steps-row {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 0;
+flex-wrap: wrap;
+margin: 28px 0 32px;
+}
+.intro-step-item {
+display: flex;
+align-items: center;
+gap: 10px;
+flex-shrink: 0;
+}
+.intro-step-num {
+width: 34px; height: 34px;
+border-radius: 50%;
+border: 2px solid var(--pk-navy);
+display: flex; align-items: center; justify-content: center;
+font-family: 'Cormorant Garamond', serif;
+font-size: 1rem;
+font-weight: 700;
+color: var(--pk-navy);
+flex-shrink: 0;
+}
+.intro-step-text {
+font-size: 0.83rem;
+font-weight: 600;
+color: var(--pk-navy);
+}
+.intro-step-arrow {
+font-size: 1.6rem;
+color: var(--pk-muted);
+margin: 0 14px;
+line-height: 1;
+}
+/* ── BEFORE / HOW IT HELPS / AFTER ── */
+.compare-table {
+margin-top: 36px;
+border-radius: 14px;
+overflow: hidden;
+border: 1.5px solid var(--pk-light);
+text-align: left;
+}
+.compare-row-header {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+}
+.compare-cell-hd {
+background: var(--pk-navy);
+color: #fff;
+font-size: 0.82rem;
+font-weight: 700;
+letter-spacing: 0.04em;
+text-align: center;
+padding: 14px 16px;
+}
+.compare-cell-hd--mid { background: rgba(42,77,105,0.82); }
+.compare-row-body {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+border-bottom: 1px solid var(--pk-light);
+}
+.compare-row-body--last { border-bottom: none; }
+.compare-cell-bd {
+padding: 13px 16px;
+font-size: 0.82rem;
+font-weight: 400;
+color: var(--pk-text);
+line-height: 1.5;
+display: flex;
+align-items: flex-start;
+gap: 7px;
+background: #fff;
+}
+.compare-cell-bd--mid { background: var(--pk-cream); }
+.compare-cell-bd--after {
+color: var(--pk-navy);
+font-weight: 600;
+background: #fff;
+}
+.compare-bullet {
+width: 5px; height: 5px;
+border-radius: 50%;
+background: var(--pk-red);
+flex-shrink: 0;
+margin-top: 6px;
+}
+/* ── LOADING ── */
+#loading-screen { display: none; flex-direction: column; align-items: center; justify-content: center; padding: 64px 40px; text-align: center; }
+#loading-screen.active { display: flex; }
+.spinner { width: 48px; height: 48px; border: 4px solid var(--pk-light); border-top-color: var(--pk-red); border-radius: 50%; animation: spin 0.9s linear infinite; margin-bottom: 24px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+#loading-screen p { font-size: 0.9rem; color: var(--pk-muted); font-weight: 300; }
+/* ── FOOTER ── */
+footer { background: var(--pk-navy-dark); color: rgba(255,255,255,0.4); text-align: center; font-size: 0.75rem; font-weight: 300; padding: 18px; letter-spacing: 0.03em; }
+footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+header { padding: 14px 20px; }
+.progress-wrap { padding: 0 20px 14px; }
+.quiz-outer { padding: 16px 10px 60px; }
+.step-header, .result-header { padding-left: 22px; padding-right: 22px; padding-top: 28px; }
+.step-body, .result-body, .intro-body { padding-left: 22px; padding-right: 22px; }
+.intro-hero-inner { flex-direction: column; gap: 24px; align-items: flex-start; padding: 36px 22px 36px; }
+.intro-hero-visual { align-self: center; }
+.intro-mini-outcomes { width: 100%; }
+.score-ring-wrap { width: 140px; height: 140px; }
+.score-ring { width: 140px; height: 140px; }
+.srn { font-size: 2.4rem; }
+.intro-title { font-size: 2rem; }
+.result-archetype { font-size: 1.5rem; }
+.options-grid.cols-2 { grid-template-columns: 1fr; }
+.btn-row { flex-direction: column-reverse; }
+.btn { width: 100%; justify-content: center; }
+.deal-row { flex-direction: column; }
+.hero-trust-bar { gap: 10px; }
+.trust-item { border-right: none; padding-right: 0; margin-right: 0; }
+.intro-steps-row { flex-direction: column; gap: 10px; }
+.intro-step-arrow { display: none; }
+.compare-row-header { display: none; }
+.compare-row-body {
+grid-template-columns: 1fr;
+border-bottom: none;
+margin-bottom: 10px;
+border-radius: 10px;
+overflow: hidden;
+}
+.compare-cell-bd {
+padding: 10px 14px;
+border-bottom: 1px solid var(--pk-light);
+}
+.compare-cell-bd::before {
+content: attr(data-label);
+display: block;
+font-size: 0.7rem;
+font-weight: 700;
+letter-spacing: 0.06em;
+text-transform: uppercase;
+color: var(--pk-muted);
+margin-bottom: 3px;
+}
+.compare-cell-bd--after { border-bottom: none; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Property <span>Kickstart</span></div>
+  <p>Investor Profile Quiz</p>
+</header>
+
+<div class="progress-wrap" id="progress-wrap" style="display:none;">
+  <div class="progress-label">
+    <span id="step-counter">Step 1 of 6</span>
+    <span id="step-pct">0%</span>
+  </div>
+  <div class="progress-bar-track">
+    <div class="progress-bar-fill" id="progress-fill"></div>
+  </div>
+  <!-- ACT-64: Progress bar micro-copy -->
+  <p class="progress-microcopy">Most people complete this in under 3 minutes</p>
+</div>
+
+<div class="quiz-outer">
+<div class="quiz-card">
+
+  <!-- ══════════════════ INTRO ══════════════════ -->
+  <!-- ACT-64: New headline, subheading, trust line, outcome framing -->
+  <div class="step active" id="step-intro">
+<!-- HERO: Premium dark with ambient glow -->
+<div class="intro-hero">
+  <!-- Layered backgrounds -->
+  <div class="intro-hero-bg">
+    <div class="intro-hero-bg-base"></div>
+    <div class="intro-hero-bg-glow1"></div>
+    <div class="intro-hero-bg-glow2"></div>
+    <div class="intro-hero-bg-lines"></div>
+    <div class="intro-hero-bg-accent"></div>
+  </div>
+
+  <div class="intro-hero-inner">
+
+    <!-- LEFT: Text -->
+    <div class="intro-hero-text">
+      <p class="intro-eyebrow">Free UK Property Assessment</p>
+      <h1 class="intro-title">Discover your
+<em>investment readiness</em>
+— and the deals
+<span class="ua">that match</span></h1>
+      <p class="intro-sub">Three minutes. Zero fluff. Walk away knowing exactly where you stand — and what to do next.</p>
+      <button class="btn btn-primary intro-cta-btn" onclick="startQuiz()">Start My Free Assessment &#8594;</button>
+      <div class="hero-trust-bar">
+        <div class="trust-item"><div class="trust-check">&#10003;</div><span>100% Free</span></div>
+        <div class="trust-item"><div class="trust-check">&#10003;</div><span>~3 Minutes</span></div>
+        <div class="trust-item"><div class="trust-check">&#10003;</div><span>Personalised to you</span></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Premium score ring + mini outcome cards -->
+    <div class="intro-hero-visual">
+      <div class="score-ring-wrap">
+        <div class="score-ring-orbit"></div>
+        <div class="score-ring-glow"></div>
+        <div class="score-ring">
+          <div class="score-ring-content">
+            <span class="srl">Your Score</span>
+            <span class="srn">78</span>
+            <span class="srm">/100</span>
+          </div>
+        </div>
+      </div>
+      <p class="score-ring-caption">Discover yours</p>
+      <div class="intro-mini-outcomes">
+        <div class="intro-mini-card">
+          <div class="intro-mini-icon">&#128202;</div>
+          <div class="intro-mini-text">
+            <strong>Investment readiness score</strong>
+            <span>Precise score out of 100</span>
+          </div>
+        </div>
+        <div class="intro-mini-card">
+          <div class="intro-mini-icon">&#127919;</div>
+          <div class="intro-mini-text">
+            <strong>The right strategy for you</strong>
+            <span>Matched to your situation</span>
+          </div>
+        </div>
+        <div class="intro-mini-card">
+          <div class="intro-mini-icon">&#127968;</div>
+          <div class="intro-mini-text">
+            <strong>Live UK deals matched to your profile</strong>
+            <span>Real opportunities, right now</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BODY: Full discover section -->
+<div class="intro-body">
+  <p class="intro-body-eyebrow">What you'll walk away with</p>
+  <h2>Three things delivered the moment you finish</h2>
+  <p class="intro-body-sub">Not generic advice. Not a newsletter. Your exact position, strategy, and matched opportunities.</p>
+
+  <div class="discover-cards">
+    <div class="discover-card">
+      <div class="discover-icon">&#128202;</div>
+      <div class="discover-card-content">
+        <strong>Your readiness score</strong>
+        <p>A precise score out of 100 based on your budget, finance position, and timeline — with a clear explanation of what it means.</p>
+      </div>
+    </div>
+    <div class="discover-card">
+      <div class="discover-icon">&#127919;</div>
+      <div class="discover-card-content">
+        <strong>The right strategy</strong>
+        <p>The investment approach that fits your goals, involvement preference, and what you can realistically achieve right now.</p>
+      </div>
+    </div>
+    <div class="discover-card">
+      <div class="discover-icon">&#127968;</div>
+      <div class="discover-card-content">
+        <strong>Live UK deals</strong>
+        <p>Real property opportunities currently available — sourced, analysed, and placed end-to-end — matched to your profile.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS steps -->
+  <div class="intro-steps-row">
+    <div class="intro-step-item">
+      <div class="intro-step-num">1</div>
+      <span class="intro-step-text">Answer a few quick questions</span>
+    </div>
+    <div class="intro-step-arrow">&#8250;</div>
+    <div class="intro-step-item">
+      <div class="intro-step-num">2</div>
+      <span class="intro-step-text">Get your investor profile</span>
+    </div>
+    <div class="intro-step-arrow">&#8250;</div>
+    <div class="intro-step-item">
+      <div class="intro-step-num">3</div>
+      <span class="intro-step-text">See your matched deals</span>
+    </div>
+  </div>
+
+  <button class="btn btn-primary intro-body-cta" onclick="startQuiz()">Start My Free Assessment &#8594;</button>
+  <p class="intro-trust">Used by investors actively building UK property portfolios</p>
+
+  <!-- BEFORE / HOW IT HELPS / AFTER -->
+  <div class="compare-table">
+    <div class="compare-row-header">
+      <div class="compare-cell-hd">Before</div>
+      <div class="compare-cell-hd compare-cell-hd--mid">How It Helps</div>
+      <div class="compare-cell-hd">After</div>
+    </div>
+    <div class="compare-row-body">
+      <div class="compare-cell-bd" data-label="Before"><span class="compare-bullet"></span>Not sure where to start</div>
+      <div class="compare-cell-bd compare-cell-bd--mid" data-label="How It Helps"><span class="compare-bullet"></span>Answer simple questions</div>
+      <div class="compare-cell-bd compare-cell-bd--after" data-label="After"><span class="compare-bullet"></span>Clear next step</div>
+    </div>
+    <div class="compare-row-body">
+      <div class="compare-cell-bd" data-label="Before"><span class="compare-bullet"></span>Unsure what you can afford</div>
+      <div class="compare-cell-bd compare-cell-bd--mid" data-label="How It Helps"><span class="compare-bullet"></span>Get clarity on your position</div>
+      <div class="compare-cell-bd compare-cell-bd--after" data-label="After"><span class="compare-bullet"></span>Strategy matched to you</div>
+    </div>
+    <div class="compare-row-body compare-row-body--last">
+      <div class="compare-cell-bd" data-label="Before"><span class="compare-bullet"></span>Overwhelmed by strategies</div>
+      <div class="compare-cell-bd compare-cell-bd--mid" data-label="How It Helps"><span class="compare-bullet"></span>See realistic options</div>
+      <div class="compare-cell-bd compare-cell-bd--after" data-label="After"><span class="compare-bullet"></span>Deals aligned to your profile</div>
+    </div>
+  </div>
+
+</div>
+</div>
+<div class="step" id="step-1">
+    <div class="step-header">
+      <span class="step-tag">Step 1 of 6 — Your Goals</span>
+      <h2 class="step-title">What are you here<br/>to achieve?</h2>
+      <p class="step-subtitle">Be honest — there's no wrong answer. This shapes your archetype.</p>
+    </div>
+    <div class="step-body">
+
+      <!-- ACT-64: Q2 — Updated goal options -->
+      <div class="field-group">
+        <label>Primary Investment Goal</label>
+        <div class="options-grid cols-1" id="opts-primaryGoal">
+          <div class="option-card" data-field="primaryGoal" data-value="Replace my income — financial freedom" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Replace my income (financial freedom)<small>Use property to fully replace or match what I currently earn</small></div>
+          </div>
+          <div class="option-card" data-field="primaryGoal" data-value="Build reliable monthly income" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Build reliable monthly income<small>Add consistent, predictable cash flow to what I already have</small></div>
+          </div>
+          <div class="option-card" data-field="primaryGoal" data-value="Create both income and long-term growth" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Create both income and long-term growth<small>Balance cash flow now with building portfolio value over time</small></div>
+          </div>
+          <div class="option-card" data-field="primaryGoal" data-value="Generate short-term profit" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Generate short-term profit<small>Active strategy, faster returns, scale quickly</small></div>
+          </div>
+          <div class="option-card" data-field="primaryGoal" data-value="Learn how to start investing properly" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Learn how to start investing properly<small>Build my knowledge and make the right first move</small></div>
+          </div>
+        </div>
+        <p class="error-msg" id="err-primaryGoal">Please select your primary goal.</p>
+      </div>
+
+      <!-- ACT-64: Q8 — Strategy → Outcome (MAJOR CHANGE) -->
+      <div class="field-group" style="margin-top:24px;">
+        <label>What type of outcome are you most interested in?</label>
+        <div class="options-grid cols-1" id="opts-outcome">
+          <div class="option-card" data-field="outcome" data-value="Reliable monthly income" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Reliable monthly income<small>Steady, predictable returns from day one</small></div>
+          </div>
+          <div class="option-card" data-field="outcome" data-value="Higher cashflow opportunities" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Higher cashflow opportunities<small>Maximise monthly yield, willing to manage more complexity</small></div>
+          </div>
+          <div class="option-card" data-field="outcome" data-value="Growth and profit — buy, refurbish, sell" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Growth and profit (buy, refurbish, sell)<small>Add value, build equity, realise profit</small></div>
+          </div>
+          <div class="option-card" data-field="outcome" data-value="I'm open — show me what works" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">I'm open — show me what works<small>Guide me to the strategy that fits my situation</small></div>
+          </div>
+        </div>
+        <p class="error-msg" id="err-outcome">Please select your preferred outcome.</p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="nextStep(1)">Continue →</button>
+        <button class="btn btn-secondary" onclick="goBack(1)">← Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ STEP 3 — TIMELINE & BUDGET ══════════════════ -->
+  <!-- ACT-64: Q3 + Q4 question phrasing updated -->
+  <div class="step" id="step-2">
+    <div class="step-header">
+      <span class="step-tag">Step 2 of 6 — Timing & Budget</span>
+      <h2 class="step-title">How ready are you<br/>to move?</h2>
+      <p class="step-subtitle">Your timeline and budget shape your readiness score.</p>
+    </div>
+    <div class="step-body">
+
+      <!-- ACT-64: Q3 reframed -->
+      <div class="field-group">
+        <label>When are you aiming to secure your next property investment?</label>
+        <div class="options-grid cols-1" id="opts-timeline">
+          <div class="option-card" data-field="timeline" data-value="Right now" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Right now<small>I'm ready to move immediately</small></div>
+          </div>
+          <div class="option-card" data-field="timeline" data-value="Within 3 months" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Within 3 months</div>
+          </div>
+          <div class="option-card" data-field="timeline" data-value="3–6 months" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">3–6 months</div>
+          </div>
+          <div class="option-card" data-field="timeline" data-value="6–12 months" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">6–12 months</div>
+          </div>
+          <div class="option-card" data-field="timeline" data-value="Over 12 months" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Over 12 months<small>Still planning and exploring</small></div>
+          </div>
+        </div>
+        <p class="error-msg" id="err-timeline">Please select your timeline.</p>
+      </div>
+
+      <!-- ACT-64: Q4 reframed -->
+      <div class="field-group" style="margin-top:24px;">
+        <label>How much are you comfortable investing to get started?</label>
+        <div class="options-grid cols-2" id="opts-budget">
+          <div class="option-card" data-field="budget" data-value="Under £50k" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Under £50k</div>
+          </div>
+          <div class="option-card" data-field="budget" data-value="£50k–£100k" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">£50k – £100k</div>
+          </div>
+          <div class="option-card" data-field="budget" data-value="£100k–£150k" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">£100k – £150k</div>
+          </div>
+          <div class="option-card" data-field="budget" data-value="£150k–£250k" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">£150k – £250k</div>
+          </div>
+          <div class="option-card" data-field="budget" data-value="£250k+" onclick="selectOption(this)" style="grid-column: 1 / -1;">
+            <div class="option-dot"></div>
+            <div class="option-label">£250k+</div>
+          </div>
+        </div>
+        <p class="error-msg" id="err-budget">Please select your budget.</p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="nextStep(2)">Continue →</button>
+        <button class="btn btn-secondary" onclick="goBack(2)">← Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ STEP 4 — FINANCE ══════════════════ -->
+  <!-- ACT-64: Keep — minor tone only -->
+  <div class="step" id="step-3">
+    <div class="step-header">
+      <span class="step-tag">Step 3 of 6 — Finance</span>
+      <h2 class="step-title">How are you planning<br/>to fund your investment?</h2>
+      <p class="step-subtitle">Your finance position is one of the biggest factors in your readiness score.</p>
+    </div>
+    <div class="step-body">
+
+      <div class="field-group">
+        <label>Finance Method</label>
+        <div class="options-grid cols-1" id="opts-financeMethod">
+          <div class="option-card" data-field="financeMethod" data-value="Buy-to-let mortgage" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Buy-to-let mortgage<small>Standard BTL lending, typically 25% deposit</small></div>
+          </div>
+          <div class="option-card" data-field="financeMethod" data-value="Cash purchase" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Cash purchase<small>Buying outright with no mortgage required</small></div>
+          </div>
+          <div class="option-card" data-field="financeMethod" data-value="Bridging finance" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Bridging finance<small>Short-term lending, then refinance to BTL</small></div>
+          </div>
+          <div class="option-card" data-field="financeMethod" data-value="Not sure yet" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Not sure yet<small>I'd need guidance on the right option</small></div>
+          </div>
+        </div>
+        <p class="error-msg" id="err-financeMethod">Please select a finance method.</p>
+      </div>
+
+      <div class="field-group" style="margin-top:24px;">
+        <label>Have you spoken to a broker yet?</label>
+        <div class="options-grid cols-1" id="opts-financeInPlace">
+          <div class="option-card" data-field="financeInPlace" data-value="Yes" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Yes — finance is confirmed and ready</div>
+          </div>
+          <div class="option-card" data-field="financeInPlace" data-value="Actively arranging it" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Actively arranging it<small>In conversations with brokers / lenders now</small></div>
+          </div>
+          <div class="option-card" data-field="financeInPlace" data-value="No — I'd need guidance on this" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">No — I'd need guidance on this</div>
+          </div>
+        </div>
+        <p class="error-msg" id="err-financeInPlace">Please select your finance status.</p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="nextStep(3)">Continue →</button>
+        <button class="btn btn-secondary" onclick="goBack(3)">← Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ STEP 5 — EXPERIENCE & PRIORITIES ══════════════════ -->
+  <!-- ACT-64: Q1 reframed + Q9 risk→priorities (MAJOR CHANGE) -->
+  <div class="step" id="step-4">
+    <div class="step-header">
+      <span class="step-tag">Step 4 of 6 — Experience & Priorities</span>
+      <h2 class="step-title">Your background and<br/>what matters most to you</h2>
+      <p class="step-subtitle">Honest answers help us match you to the right deals.</p>
+    </div>
+    <div class="step-body">
+
+      <!-- ACT-64: Q1 reframed -->
+      <div class="field-group">
+        <label>Which best describes where you are in your property investment journey?</label>
+        <div class="options-grid cols-1" id="opts-experience">
+          <div class="option-card" data-field="experience" data-value="No experience — first-time investor" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">I haven't invested yet — this is my first step</div>
+          </div>
+          <div class="option-card" data-field="experience" data-value="Some research" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">I've been researching and learning<small>Not yet pulled the trigger</small></div>
+          </div>
+          <div class="option-card" data-field="experience" data-value="Experienced investor" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">I've completed deals before<small>Looking to add to my portfolio</small></div>
+          </div>
+        </div>
+        <p class="error-msg" id="err-experience">Please select your experience level.</p>
+      </div>
+
+      <div class="field-group" style="margin-top:24px;">
+        <label>Property Ownership</label>
+        <div class="options-grid cols-1" id="opts-propertyOwnership">
+          <div class="option-card" data-field="propertyOwnership" data-value="No investment property" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">No investment property yet</div>
+          </div>
+          <div class="option-card" data-field="propertyOwnership" data-value="Own my home" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Own my home (no investment properties)</div>
+          </div>
+          <div class="option-card" data-field="propertyOwnership" data-value="Own investment property" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Own investment property<small>I already have property in my portfolio</small></div>
+          </div>
+        </div>
+        <p class="error-msg" id="err-propertyOwnership">Please select your property ownership status.</p>
+      </div>
+
+      <!-- ACT-64: Q9 — Risk → Priorities (MAJOR CHANGE) -->
+      <div class="field-group" style="margin-top:24px;">
+        <label>What matters most to you when investing?</label>
+        <div class="options-grid cols-1" id="opts-priorities">
+          <div class="option-card" data-field="priorities" data-value="Stability and predictable income" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Stability and predictable income<small>Capital preservation is my priority — steady, lower-risk returns</small></div>
+          </div>
+          <div class="option-card" data-field="priorities" data-value="Strong returns with balanced risk" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Strong returns with balanced risk<small>I'm comfortable with managed risk for solid, consistent returns</small></div>
+          </div>
+          <div class="option-card" data-field="priorities" data-value="Maximum returns — I understand higher risk" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Maximum returns (I understand higher risk)<small>I want the highest possible returns and accept the risk that comes with it</small></div>
+          </div>
+        </div>
+        <p class="error-msg" id="err-priorities">Please select your priority.</p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="nextStep(4)">Continue →</button>
+        <button class="btn btn-secondary" onclick="goBack(4)">← Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ STEP 6 — HANDS-ON ══════════════════ -->
+  <!-- ACT-64: Keep — no change -->
+  <div class="step" id="step-5">
+    <div class="step-header">
+      <span class="step-tag">Step 5 of 6 — Your Involvement</span>
+      <h2 class="step-title">How involved do you<br/>want to be?</h2>
+      <p class="step-subtitle">This is the single strongest signal in your investor profile.</p>
+    </div>
+    <div class="step-body">
+
+      <div class="field-group">
+        <label>Hands-On Preference</label>
+        <div class="options-grid cols-1" id="opts-handsOnPreference">
+          <div class="option-card" data-field="handsOnPreference" data-value="Completely hands-off" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Completely hands-off<small>I want the team to handle everything. I just review and decide.</small></div>
+          </div>
+          <div class="option-card" data-field="handsOnPreference" data-value="Involved but guided" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Involved but guided<small>I want to stay informed and make decisions, with expert support.</small></div>
+          </div>
+          <div class="option-card" data-field="handsOnPreference" data-value="Fully hands-on" onclick="selectOption(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Fully hands-on<small>I want to be actively involved in the process and management.</small></div>
+          </div>
+        </div>
+        <p class="error-msg" id="err-handsOnPreference">Please select your preference.</p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="nextStep(5)">Continue →</button>
+        <button class="btn btn-secondary" onclick="goBack(5)">← Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ STEP 7 — BLOCKERS (MAJOR UPGRADE) ══════════════════ -->
+  <!-- ACT-64: Two-step blocker: required multi-choice + optional text -->
+  <div class="step" id="step-6">
+    <div class="step-header">
+      <span class="step-tag">Step 6 of 6 — Almost Done</span>
+      <h2 class="step-title">Last two questions —<br/>then we'll reveal your profile.</h2>
+      <p class="step-subtitle">These help us give you the most relevant guidance from day one.</p>
+    </div>
+    <div class="step-body">
+
+      <!-- ACT-64: Q11 Step 1 — required multi-choice blockers -->
+      <div class="field-group">
+        <label>What's currently slowing you down? <span style="font-weight:300;text-transform:none;letter-spacing:0;">(select all that apply)</span></label>
+        <div class="options-grid cols-1" id="opts-blockers">
+          <div class="option-card multi" data-field="blockers" data-value="Not sure where to start" onclick="toggleMulti(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Not sure where to start</div>
+          </div>
+          <div class="option-card multi" data-field="blockers" data-value="Unsure about finance" onclick="toggleMulti(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Unsure about finance</div>
+          </div>
+          <div class="option-card multi" data-field="blockers" data-value="Finding the right deals" onclick="toggleMulti(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Finding the right deals</div>
+          </div>
+          <div class="option-card multi" data-field="blockers" data-value="Time / too busy" onclick="toggleMulti(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">Time / too busy</div>
+          </div>
+          <div class="option-card multi" data-field="blockers" data-value="I'm ready — just need the right opportunity" onclick="toggleMulti(this)">
+            <div class="option-dot"></div>
+            <div class="option-label">I'm ready — just need the right opportunity</div>
+          </div>
+        </div>
+        <p class="error-msg" id="err-blockers">Please select at least one option.</p>
+      </div>
+
+      <!-- ACT-64: Q11 Step 2 — optional text -->
+      <div class="field-group" style="margin-top:24px;">
+        <label for="anythingElse">Anything else you'd like us to know? <span style="font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span></label>
+        <textarea id="anythingElse" placeholder="Tell us what's on your mind — goals, concerns, or anything you want to cover on your call…"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" id="submit-btn" onclick="showContactStep()">Continue →</button>
+        <button class="btn btn-secondary" onclick="goBack(6)">← Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ LOADING ══════════════════ -->
+<div class="step" id="step-contact">
+    <div class="step-header">
+      <span class="step-tag">Almost there — unlock your results</span>
+      <h2 class="step-title">Unlock your personalised<br/>results & matched deals</h2>
+      <p class="step-subtitle">Your investor profile is ready. Enter your details to reveal your score and matched deals.</p>
+    </div>
+    <div class="step-body">
+      <div class="name-row">
+        <div class="field-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" placeholder="e.g. Sarah" autocomplete="given-name" />
+          <p class="error-msg" id="err-firstName">Please enter your first name.</p>
+        </div>
+        <div class="field-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" placeholder="e.g. Johnson" autocomplete="family-name" />
+          <p class="error-msg" id="err-lastName">Please enter your last name.</p>
+        </div>
+      </div>
+      <div class="field-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="e.g. sarah@example.com" autocomplete="email" />
+        <p class="error-msg" id="err-email">Please enter a valid email address.</p>
+      </div>
+      <div class="field-group">
+        <label>Mobile Number</label>
+        <div id="phone-field-wrap">
+          <!-- Built by buildPhoneField() when contact step loads -->
+          <div class="pk-phone-wrap">
+            <button type="button" class="pk-dial-btn" id="pk-dial-btn" onclick="toggleDialDropdown(event)">
+              <span id="pk-dial-display">🇬🇧 +44</span>
+              <span class="pk-dial-arrow">▾</span>
+            </button>
+            <input type="tel" id="mobile" class="pk-phone-input" placeholder="7400 123456" autocomplete="tel" />
+          </div>
+          <div class="pk-dial-dropdown" id="pk-dial-dropdown" style="display:none;"></div>
+        </div>
+        <p class="field-hint">Select your country, then enter your number — we work with investors worldwide 🌍</p>
+        <p class="error-msg" id="err-mobile">Please enter a valid mobile number.</p>
+      </div>
+      <!-- ACT-64: Consent checkbox -->
+      <div class="consent-wrap" id="consent-wrap" onclick="toggleConsent()">
+        <div class="consent-box" id="consent-box"></div>
+        <div class="consent-text">
+          I'd like to receive my results and relevant property opportunities
+          <small>We'll never share your details. You can unsubscribe at any time.</small>
+        </div>
+      </div>
+      <p class="error-msg" id="err-consent">Please tick to confirm you're happy to receive your results.</p>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="submitQuiz()">Reveal My Results →</button>
+        <button class="btn btn-secondary" onclick="showStep(6)">← Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ STEP 2 — GOALS & OUTCOME ══════════════════ -->
+  <!-- ACT-64: Q2 updated options + Q8 strategy→outcome (MAJOR CHANGE) -->
+  
+
+  <div id="loading-screen">
+    <div class="spinner"></div>
+    <p>Calculating your investor profile…</p>
+  </div>
+
+  <!-- ══════════════════ RESULT ══════════════════ -->
+  <!-- ACT-64: + urgency line + Your Next Step + What happens next + deals preview -->
+  <div id="step-result">
+    <div class="result-header">
+      <div class="result-badge" id="result-badge">Your Investor Profile</div>
+      <h2 class="result-archetype" id="result-archetype">The Hands-Off Investor</h2>
+      <p class="result-tagline" id="result-tagline">Property income. Zero landlord stress.</p>
+      <div class="readiness-pill">
+        <span class="score-num" id="result-score">0</span>
+        <span class="score-label">Readiness<br/>Score /100</span>
+      </div>
+    </div>
+    <div class="result-body">
+      <p class="result-description" id="result-description"></p>
+
+      <!-- CTA box -->
+      <div class="result-cta-box">
+        <div class="hot-badge" id="cta-badge">🔥 Hot lead</div>
+        <h3 id="cta-title">Book Your Free Strategy Call</h3>
+        <p id="cta-text">You're ready to move. Let's get clear on your goals, your budget, and the exact deals that fit your criteria.</p>
+        <a href="https://tidycal.com/propertykickstartuk" target="_blank" id="cta-btn" class="btn btn-cta">Book My Free Strategy Call →</a>
+        <a href="https://www.propertykickstart.co.uk/" target="_blank" id="cta-btn-secondary" class="btn btn-cta-secondary">Explore Property Kickstart →</a>
+        <!-- ACT-64: Urgency line -->
+        <p class="result-urgency" id="result-urgency">Serious investors often speak with us within 24 hours.</p>
+      </div>
+
+      <!-- ACT-64: Your Next Step section -->
+      <div class="result-steps-section" id="your-next-step">
+        <h4>Your Next Step</h4>
+        <div class="result-step-item">
+          <div class="result-step-num">1</div>
+          <div class="result-step-text">Speak to our broker to confirm your borrowing power</div>
+        </div>
+        <div class="result-step-item">
+          <div class="result-step-num">2</div>
+          <div class="result-step-text">Get access to deals matched to your investor profile</div>
+        </div>
+        <div class="result-step-item">
+          <div class="result-step-num">3</div>
+          <div class="result-step-text">Secure your first property within 30–60 days</div>
+        </div>
+      </div>
+
+      <!-- ACT-64: What happens next section -->
+      <div class="result-steps-section" id="what-happens-next">
+        <h4>What happens next</h4>
+        <div class="result-step-item">
+          <div class="result-step-num" style="background:var(--pk-red);">1</div>
+          <div class="result-step-text">We review your profile and readiness score</div>
+        </div>
+        <div class="result-step-item">
+          <div class="result-step-num" style="background:var(--pk-red);">2</div>
+          <div class="result-step-text">We match you to suitable live deals</div>
+        </div>
+        <div class="result-step-item">
+          <div class="result-step-num" style="background:var(--pk-red);">3</div>
+          <div class="result-step-text">We walk you through your options on a short call</div>
+        </div>
+      </div>
+
+      <!-- ACT-64: Deals preview section (rendered dynamically) -->
+      <div class="deals-preview" id="deals-preview">
+        <h4>Deals we typically show investors like you</h4>
+        <div class="deal-row" id="deal-row"></div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /.quiz-card -->
+</div><!-- /.quiz-outer -->
+
+<footer>
+  &copy; 2026 Property Kickstart Ltd · <a href="https://www.propertykickstart.co.uk/">propertykickstart.co.uk</a> ·
+  <a href="https://www.propertykickstart.co.uk/privacy">Privacy Policy</a>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════════
+// CONFIGURATION
+// ══════════════════════════════════════════════════
+const PIPEDREAM_WEBHOOK_URL = 'https://eo7lfd8lwi1zkua.m.pipedream.net';
+const TIDYCAL_URL = 'https://tidycal.com/propertykickstartuk';
+
+// ══════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════
+let answers = {};
+let consentGiven = false;
+let currentStep = 0;
+const TOTAL_STEPS = 6;
+// ── Custom country code selector ──
+const COUNTRY_CODES = [
+  {name:'United Kingdom',code:'GB',dial:'+44'},
+  {name:'United States',code:'US',dial:'+1'},
+  {name:'Australia',code:'AU',dial:'+61'},
+  {name:'Canada',code:'CA',dial:'+1'},
+  {name:'Ireland',code:'IE',dial:'+353'},
+  {name:'Afghanistan',code:'AF',dial:'+93'},
+  {name:'Albania',code:'AL',dial:'+355'},
+  {name:'Algeria',code:'DZ',dial:'+213'},
+  {name:'Argentina',code:'AR',dial:'+54'},
+  {name:'Austria',code:'AT',dial:'+43'},
+  {name:'Bahrain',code:'BH',dial:'+973'},
+  {name:'Bangladesh',code:'BD',dial:'+880'},
+  {name:'Belgium',code:'BE',dial:'+32'},
+  {name:'Brazil',code:'BR',dial:'+55'},
+  {name:'Bulgaria',code:'BG',dial:'+359'},
+  {name:'China',code:'CN',dial:'+86'},
+  {name:'Croatia',code:'HR',dial:'+385'},
+  {name:'Cyprus',code:'CY',dial:'+357'},
+  {name:'Czech Republic',code:'CZ',dial:'+420'},
+  {name:'Denmark',code:'DK',dial:'+45'},
+  {name:'Egypt',code:'EG',dial:'+20'},
+  {name:'Finland',code:'FI',dial:'+358'},
+  {name:'France',code:'FR',dial:'+33'},
+  {name:'Germany',code:'DE',dial:'+49'},
+  {name:'Ghana',code:'GH',dial:'+233'},
+  {name:'Greece',code:'GR',dial:'+30'},
+  {name:'Hong Kong',code:'HK',dial:'+852'},
+  {name:'Hungary',code:'HU',dial:'+36'},
+  {name:'India',code:'IN',dial:'+91'},
+  {name:'Indonesia',code:'ID',dial:'+62'},
+  {name:'Israel',code:'IL',dial:'+972'},
+  {name:'Italy',code:'IT',dial:'+39'},
+  {name:'Japan',code:'JP',dial:'+81'},
+  {name:'Jordan',code:'JO',dial:'+962'},
+  {name:'Kenya',code:'KE',dial:'+254'},
+  {name:'Kuwait',code:'KW',dial:'+965'},
+  {name:'Lebanon',code:'LB',dial:'+961'},
+  {name:'Malaysia',code:'MY',dial:'+60'},
+  {name:'Malta',code:'MT',dial:'+356'},
+  {name:'Mexico',code:'MX',dial:'+52'},
+  {name:'Morocco',code:'MA',dial:'+212'},
+  {name:'Netherlands',code:'NL',dial:'+31'},
+  {name:'New Zealand',code:'NZ',dial:'+64'},
+  {name:'Nigeria',code:'NG',dial:'+234'},
+  {name:'Norway',code:'NO',dial:'+47'},
+  {name:'Oman',code:'OM',dial:'+968'},
+  {name:'Pakistan',code:'PK',dial:'+92'},
+  {name:'Philippines',code:'PH',dial:'+63'},
+  {name:'Poland',code:'PL',dial:'+48'},
+  {name:'Portugal',code:'PT',dial:'+351'},
+  {name:'Qatar',code:'QA',dial:'+974'},
+  {name:'Romania',code:'RO',dial:'+40'},
+  {name:'Russia',code:'RU',dial:'+7'},
+  {name:'Saudi Arabia',code:'SA',dial:'+966'},
+  {name:'Singapore',code:'SG',dial:'+65'},
+  {name:'South Africa',code:'ZA',dial:'+27'},
+  {name:'South Korea',code:'KR',dial:'+82'},
+  {name:'Spain',code:'ES',dial:'+34'},
+  {name:'Sri Lanka',code:'LK',dial:'+94'},
+  {name:'Sweden',code:'SE',dial:'+46'},
+  {name:'Switzerland',code:'CH',dial:'+41'},
+  {name:'Taiwan',code:'TW',dial:'+886'},
+  {name:'Thailand',code:'TH',dial:'+66'},
+  {name:'Turkey',code:'TR',dial:'+90'},
+  {name:'Uganda',code:'UG',dial:'+256'},
+  {name:'Ukraine',code:'UA',dial:'+380'},
+  {name:'United Arab Emirates',code:'AE',dial:'+971'},
+  {name:'Vietnam',code:'VN',dial:'+84'},
+  {name:'Zimbabwe',code:'ZW',dial:'+263'}
+];
+let selectedDial = '+44';
+
+function buildPhoneField() {
+  const wrap = document.getElementById('phone-field-wrap');
+  if (!wrap || wrap.dataset.built) return;
+  wrap.dataset.built = '1';
+  wrap.innerHTML = `
+    <div class="pk-phone-wrap">
+      <button type="button" class="pk-dial-btn" id="pk-dial-btn" onclick="toggleDialDropdown(event)">
+        <span id="pk-dial-display">🇬🇧 +44</span>
+        <span class="pk-dial-arrow">▾</span>
+      </button>
+      <input type="tel" id="mobile" class="pk-phone-input" placeholder="7400 123456" autocomplete="tel" />
+    </div>
+    <div class="pk-dial-dropdown" id="pk-dial-dropdown" style="display:none;">
+      ${COUNTRY_CODES.map(c => `<div class="pk-dial-option" onclick="selectDial('${c.dial}','${c.code}','${c.name}',event)">${getFlagEmoji(c.code)} ${c.name} <span class="pk-dial-code">${c.dial}</span></div>`).join('')}
+    </div>
+  `;
+}
+
+function getFlagEmoji(code) {
+  return code.split('').map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join('');
+}
+
+function toggleDialDropdown(e) {
+  e.stopPropagation();
+  const dd = document.getElementById('pk-dial-dropdown');
+  dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+}
+
+function selectDial(dial, code, name, e) {
+  if (e) e.stopPropagation();
+  selectedDial = dial;
+  const flag = getFlagEmoji(code);
+  document.getElementById('pk-dial-display').textContent = flag + ' ' + dial;
+  document.getElementById('pk-dial-dropdown').style.display = 'none';
+}
+
+document.addEventListener('click', function() {
+  const dd = document.getElementById('pk-dial-dropdown');
+  if (dd) dd.style.display = 'none';
+});
+
+function getFullMobile() {
+  const num = (document.getElementById('mobile') ? document.getElementById('mobile').value : '').trim().replace(/^0+/, '');
+  return selectedDial + num;
+}
+
+function isValidMobile() {
+  const num = document.getElementById('mobile') ? document.getElementById('mobile').value.trim() : '';
+  return num.replace(/\D/g,'').length >= 7;
+}
+
+function showContactStep() {
+  if (!validate(6)) return;
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-contact').classList.add('active');
+  document.getElementById('progress-wrap').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  buildPhoneField();
+}
+
+// ══════════════════════════════════════════════════
+// NAV
+// ══════════════════════════════════════════════════
+function startQuiz() {
+  document.getElementById('step-intro').classList.remove('active');
+  document.getElementById('progress-wrap').style.display = 'block';
+  showStep(1);
+}
+
+function showStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById(`step-${n}`).classList.add('active');
+  currentStep = n;
+  updateProgress(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress(step) {
+  const pct = Math.round((step / TOTAL_STEPS) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('step-counter').textContent = `Step ${step} of ${TOTAL_STEPS}`;
+  document.getElementById('step-pct').textContent = pct + '%';
+}
+
+function goBack(step) {
+  if (step === 1) {
+    document.getElementById('step-1').classList.remove('active');
+    document.getElementById('step-intro').classList.add('active');
+    document.getElementById('progress-wrap').style.display = 'none';
+  } else {
+    showStep(step - 1);
+  }
+}
+
+// ══════════════════════════════════════════════════
+// CONSENT
+// ══════════════════════════════════════════════════
+function toggleConsent() {
+  consentGiven = !consentGiven;
+  const wrap = document.getElementById('consent-wrap');
+  if (consentGiven) {
+    wrap.classList.add('checked');
+  } else {
+    wrap.classList.remove('checked');
+  }
+  const err = document.getElementById('err-consent');
+  if (err && consentGiven) err.classList.remove('show');
+}
+
+// ══════════════════════════════════════════════════
+// OPTION SELECTION
+// ══════════════════════════════════════════════════
+function selectOption(el) {
+  const field = el.dataset.field;
+  document.querySelectorAll(`.option-card[data-field="${field}"]`).forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[field] = el.dataset.value;
+  const err = document.getElementById(`err-${field}`);
+  if (err) err.classList.remove('show');
+}
+
+function toggleMulti(el) {
+  el.classList.toggle('selected');
+  const field = el.dataset.field;
+  const selected = [...document.querySelectorAll(`.option-card[data-field="${field}"].selected`)].map(c => c.dataset.value);
+  answers[field] = selected;
+  const err = document.getElementById(`err-${field}`);
+  if (err && selected.length > 0) err.classList.remove('show');
+}
+
+// ══════════════════════════════════════════════════
+// VALIDATION
+// ══════════════════════════════════════════════════
+function validate(step) {
+  let ok = true;
+
+
+
+  if (step === 1) {
+    if (!answers.primaryGoal) { showErr('primaryGoal'); ok = false; }
+    if (!answers.outcome) { showErr('outcome'); ok = false; }
+  }
+
+  if (step === 2) {
+    if (!answers.timeline) { showErr('timeline'); ok = false; }
+    if (!answers.budget) { showErr('budget'); ok = false; }
+  }
+
+  if (step === 3) {
+    if (!answers.financeMethod) { showErr('financeMethod'); ok = false; }
+    if (!answers.financeInPlace) { showErr('financeInPlace'); ok = false; }
+  }
+
+  if (step === 4) {
+    if (!answers.experience) { showErr('experience'); ok = false; }
+    if (!answers.propertyOwnership) { showErr('propertyOwnership'); ok = false; }
+    if (!answers.priorities) { showErr('priorities'); ok = false; }
+  }
+
+  if (step === 5) {
+    if (!answers.handsOnPreference) { showErr('handsOnPreference'); ok = false; }
+  }
+
+  if (step === 6) {
+    const blockers = answers.blockers || [];
+    if (!blockers.length) { showErr('blockers'); ok = false; }
+    answers.anythingElse = document.getElementById('anythingElse').value.trim();
+  }
+
+  return ok;
+}
+
+function showErr(field) {
+  const el = document.getElementById(`err-${field}`);
+  if (el) el.classList.add('show');
+}
+
+function nextStep(step) {
+  if (!validate(step)) return;
+  if (step < TOTAL_STEPS) {
+    showStep(step + 1);
+  }
+}
+
+// ══════════════════════════════════════════════════
+// SCORING — updated for new field names (ACT-64)
+// outcome replaces strategy; priorities replaces riskAppetite
+// primaryGoal options updated
+// ══════════════════════════════════════════════════
+function calcArchetype(a) {
+  let h = 0, p = 0, c = 0, f = 0;
+
+  // ── The Hands-Off Investor ──
+  if (a.handsOnPreference === 'Completely hands-off') h += 3;
+  if (a.primaryGoal === 'Replace my income — financial freedom') h += 2;
+  if (a.outcome === 'Reliable monthly income') h += 2;
+  if (a.priorities === 'Stability and predictable income') h += 1;
+  if (a.financeMethod === 'Buy-to-let mortgage') h += 1;
+  if (a.timeline === '3–6 months') h += 1;
+
+  // ── The Portfolio Builder ──
+  if (a.financeMethod === 'Cash purchase' || a.financeMethod === 'Bridging finance') p += 3;
+  if (a.timeline === 'Right now' || a.timeline === 'Within 3 months') p += 2;
+  if (a.priorities === 'Maximum returns — I understand higher risk') p += 2;
+  if (a.primaryGoal === 'Generate short-term profit') p += 2;
+  if (a.outcome === 'Growth and profit — buy, refurbish, sell') p += 2;
+  if (a.experience === 'Experienced investor' || a.propertyOwnership === 'Own investment property') p += 1;
+
+  // ── The Cash Flow Seeker ──
+  if (a.primaryGoal === 'Build reliable monthly income') c += 3;
+  if (a.outcome === 'Higher cashflow opportunities') c += 3;
+  if (a.priorities === 'Strong returns with balanced risk') c += 1;
+  if (a.financeMethod === 'Buy-to-let mortgage') c += 1;
+  if (a.timeline === '3–6 months') c += 1;
+  if (a.handsOnPreference === 'Involved but guided' || a.handsOnPreference === 'Completely hands-off') c += 1;
+
+  // ── The Informed First-Timer ──
+  if (a.experience === 'No experience — first-time investor') f += 3;
+  if (a.financeInPlace === "No — I'd need guidance on this") f += 2;
+  if (a.priorities === 'Stability and predictable income') f += 1;
+  if (a.timeline === '6–12 months' || a.timeline === 'Over 12 months') f += 1;
+  if (a.primaryGoal === 'Create both income and long-term growth' || a.primaryGoal === 'Learn how to start investing properly') f += 1;
+  if (a.propertyOwnership === 'No investment property') f += 1;
+
+  // Tie-break: Hands-Off → Cash Flow → Portfolio → First-Timer
+  const max = Math.max(h, c, p, f);
+  if (h === max) return 'The Hands-Off Investor';
+  if (c === max) return 'The Cash Flow Seeker';
+  if (p === max) return 'The Portfolio Builder';
+  return 'The Informed First-Timer';
+}
+
+function calcReadiness(a) {
+  let score = 0;
+  if (a.financeInPlace === 'Yes') score += 30;
+  else if (a.financeInPlace === 'Actively arranging it') score += 20;
+  if (a.timeline === 'Right now' || a.timeline === 'Within 3 months') score += 25;
+  else if (a.timeline === '3–6 months') score += 15;
+  else if (a.timeline === '6–12 months') score += 5;
+  if (a.financeMethod === 'Cash purchase') score += 10;
+  if (a.experience === 'Experienced investor') score += 10;
+  if (a.propertyOwnership === 'Own investment property') score += 5;
+  if (a.outcome && a.outcome !== "I'm open — show me what works") score += 10;
+  const bigBudgets = ['£100k–£150k', '£150k–£250k', '£250k+'];
+  if (bigBudgets.includes(a.budget)) score += 10;
+  return Math.min(score, 100);
+}
+
+// ══════════════════════════════════════════════════
+// ARCHETYPE CONTENT
+// ══════════════════════════════════════════════════
+const archetypeContent = {
+  'The Hands-Off Investor': {
+    tagline: 'Property income. Zero landlord stress.',
+    description: `Based on your answers, you're <strong>The Hands-Off Investor</strong>.<br/><br/>
+You know exactly what you want from property — strong returns, reliable income, and a process you don't have to manage yourself. You're not here to become a landlord. You're here to build wealth intelligently, with a team that handles everything on your behalf.<br/><br/>
+That's exactly what Property Kickstart is built for. We source the deals, run the due diligence, introduce the right finance and legal partners, and guide you through every step — so you can move quickly and confidently without it taking over your life.`,
+    deals: [
+      { label: 'Strategy', value: 'Housing Association / HMO' },
+      { label: 'Yield Range', value: '7% – 10% gross' },
+      { label: 'Example Outcome', value: '£650–£900/mo net' }
+    ]
+  },
+  'The Portfolio Builder': {
+    tagline: 'Move fast. Build hard. Scale smart.',
+    description: `Based on your answers, you're <strong>The Portfolio Builder</strong>.<br/><br/>
+You've been here before — or you're ready to move like you have. You know the levers, you're not afraid of risk, and you're looking for deals with real margin, not just passive income. You want to build fast and build deliberately.<br/><br/>
+Property Kickstart works with Portfolio Builders to find the right opportunities — deals that stack up on the numbers, with the right financing structure and the headroom to scale. Let's talk about what your next acquisition looks like.`,
+    deals: [
+      { label: 'Strategy', value: 'Development / BRR' },
+      { label: 'Yield Range', value: '12%+ on money in' },
+      { label: 'Example Outcome', value: 'Equity uplift + refinance' }
+    ]
+  },
+  'The Cash Flow Seeker': {
+    tagline: 'Monthly income that works harder than you do.',
+    description: `Based on your answers, you're <strong>The Cash Flow Seeker</strong>.<br/><br/>
+You want property that pays you every month — predictably, reliably, without drama. You're not after a quick flip or a long-term gamble. You want deals that generate real cash flow from day one, with the kind of certainty that lets you plan.<br/><br/>
+Property Kickstart specialises in high-yield sourced deals — HMOs and Housing Association properties with strong monthly income built in. Your strategy call will focus on what's available, what it pays, and how to get it in your name quickly.`,
+    deals: [
+      { label: 'Strategy', value: 'HMO / Multi-let' },
+      { label: 'Yield Range', value: '9% – 12% gross' },
+      { label: 'Example Outcome', value: '£800–£1,200/mo net' }
+    ]
+  },
+  'The Informed First-Timer': {
+    tagline: 'Start right. Build smart. No guesswork.',
+    description: `Based on your answers, you're <strong>The Informed First-Timer</strong>.<br/><br/>
+You're not rushing — and that's exactly the right call. You've been doing your research, building your knowledge, and making sure you understand what you're getting into before you commit. That mindset will serve you well in property.<br/><br/>
+Property Kickstart works with first-time investors who want to start right — not just start quickly. Your strategy call is a no-pressure conversation about your goals, your questions, and the realistic path to your first deal.`,
+    deals: [
+      { label: 'Strategy', value: 'Buy to Let / HA' },
+      { label: 'Yield Range', value: '6% – 8% gross' },
+      { label: 'Example Outcome', value: 'Steady income + growth' }
+    ]
+  }
+};
+
+const PK_URL = 'https://www.propertykickstart.co.uk/';
+
+function getCTAContent(archetype, score) {
+  const isHandsOff = archetype === 'The Hands-Off Investor';
+
+  if (score >= 70 || isHandsOff) {
+    return {
+      badge: '🔥 Hot — You\'re Ready to Move',
+      title: 'Book Your Free Strategy Call',
+      text: 'Your profile is a strong match for our sourced deals. Let\'s get on a call this week — we\'ll match you to live opportunities that fit your exact criteria.',
+      btnText: 'Book My Free Strategy Call →',
+      btnUrl: TIDYCAL_URL,
+      secondaryText: 'Explore Property Kickstart →',
+      secondaryUrl: PK_URL,
+      showUrgency: true
+    };
+  } else if (score >= 40) {
+    return {
+      badge: '⚡ Warm — Good Momentum',
+      title: 'Explore What\'s Available',
+      text: 'You\'re building towards your first investment — we\'ll send you tailored content and deal insights that match your profile. When you\'re ready to move, we\'re here.',
+      btnText: 'Visit Property Kickstart →',
+      btnUrl: PK_URL,
+      secondaryText: null,
+      secondaryUrl: null,
+      showUrgency: false
+    };
+  } else {
+    return {
+      badge: '🌱 Early Stage — Let\'s Build Your Plan',
+      title: 'Start With the Right Foundation',
+      text: 'You\'re in the exploration phase — which is the perfect place to be. We\'ll send you the right guidance to move from curious to confident at your own pace.',
+      btnText: 'Explore Property Kickstart →',
+      btnUrl: PK_URL,
+      secondaryText: null,
+      secondaryUrl: null,
+      showUrgency: false
+    };
+  }
+}
+
+// ══════════════════════════════════════════════════
+// SUBMIT
+// ══════════════════════════════════════════════════
+
+
+async function submitQuiz() {
+  // Collect and validate contact details from step-contact
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName  = document.getElementById('lastName').value.trim();
+  const email     = document.getElementById('email').value.trim();
+  let ok = true;
+  if (!firstName || firstName.length < 2) { showErr('firstName', 'Please enter at least 2 characters.'); ok = false; }
+  if (!lastName  || lastName.length  < 2) { showErr('lastName',  'Please enter at least 2 characters.'); ok = false; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('email'); ok = false; }
+  if (!isValidMobile()) { showErr('mobile'); ok = false; }
+  if (!consentGiven) { showErr('consent'); ok = false; }
+  if (!ok) return;
+  answers.firstName    = firstName;
+  answers.lastName     = lastName;
+  answers.fullName     = firstName + ' ' + lastName;
+  answers.email        = email;
+  answers.mobile       = getFullMobile();
+  answers.consentGiven = consentGiven;
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+
+  const investorType = calcArchetype(answers);
+  const readinessScore = calcReadiness(answers);
+
+  const payload = {
+    ...answers,
+    blockers: answers.blockers || [],
+    readinessScore,
+    investorType,
+    financeReady: answers.financeInPlace === 'Yes' || answers.financeInPlace === 'Actively arranging it',
+    cashBuyer: answers.financeMethod === 'Cash purchase',
+    handsOffFlag: answers.handsOnPreference === 'Completely hands-off',
+    sub50k: answers.budget === 'Under £50k'
+  };
+
+  // Show loading
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-result').style.display = 'none';
+  document.getElementById('loading-screen').classList.add('active');
+  document.getElementById('progress-wrap').style.display = 'none';
+
+  // Fire webhook (non-blocking)
+  if (PIPEDREAM_WEBHOOK_URL && PIPEDREAM_WEBHOOK_URL !== 'YOUR_PIPEDREAM_WEBHOOK_URL_HERE') {
+    try {
+      await fetch(PIPEDREAM_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (e) {
+      console.warn('Webhook delivery failed:', e);
+    }
+  }
+
+  await new Promise(r => setTimeout(r, 1800));
+  showResult(investorType, readinessScore);
+}
+
+// ══════════════════════════════════════════════════
+// SHOW RESULT
+// ══════════════════════════════════════════════════
+function showResult(archetype, score) {
+  document.getElementById('loading-screen').classList.remove('active');
+
+  const content = archetypeContent[archetype];
+  const cta = getCTAContent(archetype, score);
+
+  document.getElementById('result-archetype').textContent = archetype;
+  document.getElementById('result-tagline').textContent = content.tagline;
+  document.getElementById('result-description').innerHTML = content.description;
+  document.getElementById('result-score').textContent = score;
+  document.getElementById('cta-badge').textContent = cta.badge;
+  document.getElementById('cta-title').textContent = cta.title;
+  document.getElementById('cta-text').textContent = cta.text;
+
+  const ctaBtn = document.getElementById('cta-btn');
+  ctaBtn.textContent = cta.btnText;
+  ctaBtn.href = cta.btnUrl;
+
+  const secBtn = document.getElementById('cta-btn-secondary');
+  if (cta.secondaryText) {
+    secBtn.textContent = cta.secondaryText;
+    secBtn.href = cta.secondaryUrl;
+    secBtn.style.display = '';
+  } else {
+    secBtn.style.display = 'none';
+  }
+
+  // ACT-64: Urgency line
+  const urgency = document.getElementById('result-urgency');
+  urgency.style.display = cta.showUrgency ? 'block' : 'none';
+
+  // Score colour
+  const scoreEl = document.getElementById('result-score');
+  if (score >= 70) scoreEl.style.color = '#e87c6a';
+  else if (score >= 40) scoreEl.style.color = '#f0c060';
+  else scoreEl.style.color = '#a8c8a0';
+
+  // ACT-64: Deals preview
+  const dealRow = document.getElementById('deal-row');
+  dealRow.innerHTML = '';
+  content.deals.forEach(deal => {
+    dealRow.innerHTML += `
+      <div class="deal-chip">
+        <div class="deal-chip-label">${deal.label}</div>
+        <div class="deal-chip-value">${deal.value}</div>
+      </div>`;
+  });
+
+  document.getElementById('step-result').style.display = 'block';
+  document.getElementById('step-result').classList.add('active');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+  </body>
+</html>
