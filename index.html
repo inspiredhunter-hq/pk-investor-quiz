@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- PK Investor Quiz v1.5 — 2026-10-07 — ACT-821: renamed Investor Assessment; added Yorkshire and the Humber region (CEO decision 29 Sep 2026). Prior: v1.4 Step 7 Location (ACT-583) -->
+
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -31,7 +31,7 @@ min-height: 100vh;
 display: flex;
 flex-direction: column;
 }
-/* ── HEADER ── */
+
 header {
 background: var(--pk-navy);
 padding: 18px 32px;
@@ -56,7 +56,7 @@ border-radius: 6px;
 display: block;
 object-fit: contain;
 }
-/* Fallback text logo — shown if img fails */
+
 .header-logo-fallback {
 display: flex;
 flex-direction: column;
@@ -84,7 +84,7 @@ font-weight: 400;
 letter-spacing: 0.08em;
 text-transform: uppercase;
 }
-/* ── PROGRESS ── */
+
 .progress-wrap {
 background: var(--pk-navy-dark);
 padding: 0 32px 18px;
@@ -125,7 +125,7 @@ text-align: center;
 margin-top: 7px;
 letter-spacing: 0.03em;
 }
-/* ── QUIZ CONTAINER ── */
+
 .quiz-outer {
 flex: 1;
 display: flex;
@@ -142,7 +142,7 @@ max-width: 640px;
 overflow: visible;
 }
 .quiz-card .step-header { border-radius: 20px 20px 0 0; overflow: hidden; }
-/* ── STEPS ── */
+
 .step { display: none; }
 .step.active { display: block; animation: slideIn 0.3s ease; }
 @keyframes slideIn {
@@ -191,7 +191,7 @@ color: rgba(255,255,255,0.65);
 line-height: 1.5;
 }
 .step-body { padding: 32px 40px 36px; }
-/* ── FORM FIELDS ── */
+
 .field-group { margin-bottom: 20px; }
 label {
 display: block;
@@ -241,7 +241,7 @@ font-weight: 300;
 margin-top: 5px;
 }
 
-/* ── Custom phone selector ── */
+
 .pk-phone-wrap {
   display: flex;
   align-items: stretch;
@@ -299,7 +299,7 @@ margin-top: 5px;
 .pk-dial-code { margin-left: auto; color: var(--pk-muted); font-size: 0.8rem; }
 #phone-field-wrap { position: relative; }
 
-/* ── OPTION CARDS ── */
+
 .options-grid { display: grid; gap: 10px; }
 .options-grid.cols-2 { grid-template-columns: 1fr 1fr; }
 .options-grid.cols-1 { grid-template-columns: 1fr; }
@@ -368,7 +368,7 @@ margin-bottom: 20px;
 }
 .name-row .field-group { margin-bottom: 0; }
 @media (max-width: 420px) { .name-row { grid-template-columns: 1fr; } }
-/* ── BUTTONS ── */
+
 .btn-row {
 display: flex;
 gap: 12px;
@@ -399,10 +399,10 @@ gap: 8px;
 .btn-cta-secondary { background: transparent; color: var(--pk-navy); border: 2px solid var(--pk-navy); font-size: 0.9rem; padding: 13px 28px; width: 100%; justify-content: center; margin-top: 10px; }
 .btn-cta-secondary:hover { background: var(--pk-navy); color: #fff; }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
-/* ── ERROR ── */
+
 .error-msg { color: #c0392b; font-size: 0.8rem; font-weight: 500; margin-top: 6px; display: none; }
 .error-msg.show { display: block; }
-/* ── CONSENT ── */
+
 .consent-wrap {
 display: flex;
 align-items: flex-start;
@@ -433,7 +433,7 @@ transition: all var(--transition);
 .consent-wrap.checked .consent-box::after { content: '\2713'; font-size: 12px; font-weight: 700; color: #fff; }
 .consent-text { font-size: 0.85rem; font-weight: 400; color: var(--pk-text); line-height: 1.5; }
 .consent-text small { display: block; font-size: 0.75rem; color: var(--pk-muted); margin-top: 2px; font-weight: 300; }
-/* ── RESULTS ── */
+
 #step-result { display: none; }
 #step-result.active { display: block; }
 .result-header {
@@ -448,7 +448,7 @@ overflow: hidden;
 .result-header::before { content: ''; position: absolute; top: -60px; left: -60px; width: 200px; height: 200px; border-radius: 50%; background: rgba(212,106,83,0.08); }
 .result-header::after { content: ''; position: absolute; bottom: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(212,106,83,0.06); }
 .result-badge { display: inline-block; background: rgba(212,106,83,0.18); border: 1px solid rgba(212,106,83,0.4); color: #ffb0a0; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 16px; border-radius: 100px; margin-bottom: 20px; position: relative; z-index: 1; }
-.result-archetype {
+.result-heading {
 font-family: 'Playfair Display', serif;
 font-size: 2rem;
 font-weight: 900;
@@ -485,7 +485,7 @@ to   { opacity: 1; transform: translateY(0); }
 .deal-chip { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 10px 14px; flex: 1; min-width: 130px; }
 .deal-chip-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pk-red); margin-bottom: 4px; }
 .deal-chip-value { font-size: 0.85rem; font-weight: 500; color: #fff; line-height: 1.3; }
-/* ── INTRO — v0.5 Premium Dark ── */
+
 .intro-hero {
 position: relative;
 overflow: hidden;
@@ -493,7 +493,7 @@ min-height: 520px;
 display: flex;
 align-items: center;
 }
-/* Layered atmospheric backgrounds */
+
 .intro-hero-bg {
 position: absolute;
 inset: 0;
@@ -540,7 +540,7 @@ opacity: 0.6;
 0%, 100% { transform: translate(0,0) scale(1); }
 50% { transform: translate(16px,-16px) scale(1.04); }
 }
-/* Split layout: text left, visual right */
+
 .intro-hero-inner {
 display: flex;
 align-items: center;
@@ -551,7 +551,7 @@ padding: 56px 40px 52px;
 width: 100%;
 }
 .intro-hero-text { flex: 1; }
-/* Eyebrow pill */
+
 .intro-eyebrow {
 display: inline-flex;
 align-items: center;
@@ -592,7 +592,7 @@ letter-spacing: -0.01em;
 font-style: italic;
 color: rgba(255,180,160,0.9);
 }
-/* Red underline accent on last span */
+
 .intro-title .ua {
 position: relative;
 white-space: nowrap;
@@ -621,7 +621,7 @@ justify-content: center;
 border-radius: 10px;
 letter-spacing: 0.01em;
 }
-/* Trust bar */
+
 .hero-trust-bar {
 display: flex;
 gap: 0;
@@ -657,7 +657,7 @@ font-size: 0.75rem;
 color: rgba(255,255,255,0.45);
 font-weight: 400;
 }
-/* Score ring visual — premium with orbit */
+
 .intro-hero-visual {
 flex-shrink: 0;
 display: flex;
@@ -670,7 +670,7 @@ position: relative;
 width: 180px;
 height: 180px;
 }
-/* Orbit track ring */
+
 .score-ring-orbit {
 position: absolute;
 inset: -16px;
@@ -679,7 +679,7 @@ border: 1px dashed rgba(212,106,83,0.18);
 animation: orbitSpin 10s linear infinite;
 pointer-events: none;
 }
-/* Orbit ball — sits at top of the ring element so it travels with it */
+
 .score-ring-orbit::before {
 content: '';
 position: absolute;
@@ -693,7 +693,7 @@ background: var(--pk-red);
 box-shadow: 0 0 10px rgba(212,106,83,0.7), 0 0 20px rgba(212,106,83,0.3);
 }
 @keyframes orbitSpin { to { transform: rotate(360deg); } }
-/* Outer glow pulse */
+
 .score-ring-glow {
 position: absolute;
 inset: -8px;
@@ -705,7 +705,7 @@ animation: ringPulse 3s ease-in-out infinite;
 0%, 100% { opacity: 1; transform: scale(1); }
 50% { opacity: 0.4; transform: scale(1.04); }
 }
-/* Main ring */
+
 .score-ring {
 width: 180px;
 height: 180px;
@@ -730,7 +730,7 @@ animation: ringReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 from { opacity: 0; transform: scale(0.8) rotate(-30deg); }
 to   { opacity: 1; transform: scale(1) rotate(0); }
 }
-/* Donut hole */
+
 .score-ring::after {
 content: '';
 position: absolute;
@@ -738,7 +738,7 @@ inset: 20px;
 border-radius: 50%;
 background: linear-gradient(145deg, #18303f, #0f2030);
 }
-/* Inner content */
+
 .score-ring-content {
 position: relative;
 z-index: 2;
@@ -750,7 +750,7 @@ align-items: center;
 .srl { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); display: block; margin-bottom: 1px; }
 .srn { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 700; color: rgba(255,255,255,0.12); display: block; line-height: 1; filter: blur(4px); }
 .srm { font-size: 0.68rem; color: rgba(255,255,255,0.2); display: block; margin-top: 1px; }
-/* "Discover yours" label below ring */
+
 .score-ring-caption {
 text-align: center;
 font-size: 0.68rem;
@@ -759,7 +759,7 @@ color: rgba(255,255,255,0.28);
 letter-spacing: 0.06em;
 text-transform: uppercase;
 }
-/* Mini outcome cards */
+
 .intro-mini-outcomes {
 display: flex;
 flex-direction: column;
@@ -808,7 +808,7 @@ font-size: 0.7rem;
 font-weight: 300;
 color: rgba(255,255,255,0.35);
 }
-/* ── INTRO BODY (discover section) — v0.5 ── */
+
 .intro-body {
 padding: 36px 40px 40px;
 text-align: center;
@@ -831,7 +831,7 @@ color: var(--pk-navy);
 margin-bottom: 22px;
 line-height: 1.3;
 }
-/* Discover cards — 3 outcomes */
+
 .discover-cards {
 display: flex;
 flex-direction: column;
@@ -892,7 +892,7 @@ color: var(--pk-muted);
 font-weight: 300;
 margin-top: 12px;
 }
-/* ── INTRO BODY sub-text ── */
+
 .intro-body-sub {
 font-size: 0.88rem;
 color: var(--pk-muted);
@@ -900,7 +900,7 @@ font-weight: 300;
 margin-bottom: 24px;
 line-height: 1.6;
 }
-/* ── HOW IT WORKS steps ── */
+
 .intro-steps-row {
 display: flex;
 align-items: center;
@@ -937,7 +937,7 @@ color: var(--pk-muted);
 margin: 0 14px;
 line-height: 1;
 }
-/* ── BEFORE / HOW IT HELPS / AFTER ── */
+
 .compare-table {
 margin-top: 36px;
 border-radius: 14px;
@@ -989,16 +989,16 @@ background: var(--pk-red);
 flex-shrink: 0;
 margin-top: 6px;
 }
-/* ── LOADING ── */
+
 #loading-screen { display: none; flex-direction: column; align-items: center; justify-content: center; padding: 64px 40px; text-align: center; }
 #loading-screen.active { display: flex; }
 .spinner { width: 48px; height: 48px; border: 4px solid var(--pk-light); border-top-color: var(--pk-red); border-radius: 50%; animation: spin 0.9s linear infinite; margin-bottom: 24px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 #loading-screen p { font-size: 0.9rem; color: var(--pk-muted); font-weight: 300; }
-/* ── FOOTER ── */
+
 footer { background: var(--pk-navy-dark); color: rgba(255,255,255,0.4); text-align: center; font-size: 0.75rem; font-weight: 300; padding: 18px; letter-spacing: 0.03em; }
 footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
-/* ── RESPONSIVE ── */
+
 @media (max-width: 600px) {
 header { padding: 14px 20px; }
 .progress-wrap { padding: 0 20px 14px; }
@@ -1012,7 +1012,7 @@ header { padding: 14px 20px; }
 .score-ring { width: 140px; height: 140px; }
 .srn { font-size: 2.4rem; }
 .intro-title { font-size: 2rem; }
-.result-archetype { font-size: 1.5rem; }
+.result-heading { font-size: 1.5rem; }
 .options-grid.cols-2 { grid-template-columns: 1fr; }
 .btn-row { flex-direction: column-reverse; }
 .btn { width: 100%; justify-content: center; }
@@ -1062,19 +1062,19 @@ margin-bottom: 3px;
   <div class="progress-bar-track">
     <div class="progress-bar-fill" id="progress-fill"></div>
   </div>
-  <!-- ACT-64: Progress bar micro-copy -->
+  
   <p class="progress-microcopy">Most people complete this in under 3 minutes</p>
 </div>
 
 <div class="quiz-outer">
 <div class="quiz-card">
 
-  <!-- ═══════════════════ INTRO ═══════════════════ -->
-  <!-- ACT-64: New headline, subheading, trust line, outcome framing -->
+  
+  
   <div class="step active" id="step-intro">
-<!-- HERO: Premium dark with ambient glow -->
+
 <div class="intro-hero">
-  <!-- Layered backgrounds -->
+  
   <div class="intro-hero-bg">
     <div class="intro-hero-bg-base"></div>
     <div class="intro-hero-bg-glow1"></div>
@@ -1085,7 +1085,7 @@ margin-bottom: 3px;
 
   <div class="intro-hero-inner">
 
-    <!-- LEFT: Text -->
+    
     <div class="intro-hero-text">
       <p class="intro-eyebrow">Free UK Property Assessment</p>
       <h1 class="intro-title">Discover your
@@ -1101,7 +1101,7 @@ margin-bottom: 3px;
       </div>
     </div>
 
-    <!-- RIGHT: Premium score ring + mini outcome cards -->
+    
     <div class="intro-hero-visual">
       <div class="score-ring-wrap">
         <div class="score-ring-orbit"></div>
@@ -1143,7 +1143,7 @@ margin-bottom: 3px;
   </div>
 </div>
 
-<!-- BODY: Full discover section -->
+
 <div class="intro-body">
   <p class="intro-body-eyebrow">What you'll walk away with</p>
   <h2>Three things delivered the moment you finish</h2>
@@ -1173,7 +1173,7 @@ margin-bottom: 3px;
     </div>
   </div>
 
-  <!-- HOW IT WORKS steps -->
+  
   <div class="intro-steps-row">
     <div class="intro-step-item">
       <div class="intro-step-num">1</div>
@@ -1194,7 +1194,7 @@ margin-bottom: 3px;
   <button class="btn btn-primary intro-body-cta" onclick="startQuiz()">Start My Free Assessment &#8594;</button>
   <p class="intro-trust">Used by investors actively building UK property portfolios</p>
 
-  <!-- BEFORE / HOW IT HELPS / AFTER -->
+  
   <div class="compare-table">
     <div class="compare-row-header">
       <div class="compare-cell-hd">Before</div>
@@ -1224,11 +1224,11 @@ margin-bottom: 3px;
     <div class="step-header">
       <span class="step-tag">Step 1 of 7 — Your Goals</span>
       <h2 class="step-title">What are you here<br/>to achieve?</h2>
-      <p class="step-subtitle">Be honest — there's no wrong answer. This shapes your archetype.</p>
+      <p class="step-subtitle">Be honest — there's no wrong answer. This helps us understand your preferences.</p>
     </div>
     <div class="step-body">
 
-      <!-- ACT-64: Q2 — Updated goal options -->
+      
       <div class="field-group">
         <label>Primary Investment Goal</label>
         <div class="options-grid cols-1" id="opts-primaryGoal">
@@ -1256,7 +1256,7 @@ margin-bottom: 3px;
         <p class="error-msg" id="err-primaryGoal">Please select your primary goal.</p>
       </div>
 
-      <!-- ACT-64: Q8 — Strategy → Outcome (MAJOR CHANGE) -->
+      
       <div class="field-group" style="margin-top:24px;">
         <label>What type of outcome are you most interested in?</label>
         <div class="options-grid cols-1" id="opts-outcome">
@@ -1287,8 +1287,8 @@ margin-bottom: 3px;
     </div>
   </div>
 
-  <!-- ═══════════════════ STEP 3 — TIMELINE & BUDGET ═══════════════════ -->
-  <!-- ACT-64: Q3 + Q4 question phrasing updated -->
+  
+  
   <div class="step" id="step-2">
     <div class="step-header">
       <span class="step-tag">Step 2 of 7 — Timing & Budget</span>
@@ -1297,7 +1297,7 @@ margin-bottom: 3px;
     </div>
     <div class="step-body">
 
-      <!-- ACT-64: Q3 reframed -->
+      
       <div class="field-group">
         <label>When are you aiming to secure your next property investment?</label>
         <div class="options-grid cols-1" id="opts-timeline">
@@ -1325,7 +1325,7 @@ margin-bottom: 3px;
         <p class="error-msg" id="err-timeline">Please select your timeline.</p>
       </div>
 
-      <!-- ACT-64: Q4 reframed -->
+      
       <div class="field-group" style="margin-top:24px;">
         <label>How much are you comfortable investing to get started?</label>
         <div class="options-grid cols-2" id="opts-budget">
@@ -1360,8 +1360,8 @@ margin-bottom: 3px;
     </div>
   </div>
 
-  <!-- ═══════════════════ STEP 4 — FINANCE ═══════════════════ -->
-  <!-- ACT-64: Keep — minor tone only -->
+  
+  
   <div class="step" id="step-3">
     <div class="step-header">
       <span class="step-tag">Step 3 of 7 — Finance</span>
@@ -1419,8 +1419,8 @@ margin-bottom: 3px;
     </div>
   </div>
 
-  <!-- ═══════════════════ STEP 5 — EXPERIENCE & PRIORITIES ═══════════════════ -->
-  <!-- ACT-64: Q1 reframed + Q9 risk→priorities (MAJOR CHANGE) -->
+  
+  
   <div class="step" id="step-4">
     <div class="step-header">
       <span class="step-tag">Step 4 of 7 — Experience & Priorities</span>
@@ -1429,7 +1429,7 @@ margin-bottom: 3px;
     </div>
     <div class="step-body">
 
-      <!-- ACT-64: Q1 reframed -->
+      
       <div class="field-group">
         <label>Which best describes where you are in your property investment journey?</label>
         <div class="options-grid cols-1" id="opts-experience">
@@ -1468,7 +1468,7 @@ margin-bottom: 3px;
         <p class="error-msg" id="err-propertyOwnership">Please select your property ownership status.</p>
       </div>
 
-      <!-- ACT-64: Q9 — Risk → Priorities (MAJOR CHANGE) -->
+      
       <div class="field-group" style="margin-top:24px;">
         <label>What matters most to you when investing?</label>
         <div class="options-grid cols-1" id="opts-priorities">
@@ -1495,8 +1495,8 @@ margin-bottom: 3px;
     </div>
   </div>
 
-  <!-- ═══════════════════ STEP 6 — HANDS-ON ═══════════════════ -->
-  <!-- ACT-64: Keep — no change -->
+  
+  
   <div class="step" id="step-5">
     <div class="step-header">
       <span class="step-tag">Step 5 of 7 — Your Involvement</span>
@@ -1531,8 +1531,8 @@ margin-bottom: 3px;
     </div>
   </div>
 
-  <!-- ═══════════════════ STEP 7 — BLOCKERS (MAJOR UPGRADE) ═══════════════════ -->
-  <!-- ACT-64: Two-step blocker: required multi-choice + optional text -->
+  
+  
   <div class="step" id="step-6">
     <div class="step-header">
       <span class="step-tag">Step 6 of 7 — Almost Done</span>
@@ -1541,7 +1541,7 @@ margin-bottom: 3px;
     </div>
     <div class="step-body">
 
-      <!-- ACT-64: Q11 Step 1 — required multi-choice blockers -->
+      
       <div class="field-group">
         <label>What's currently slowing you down? <span style="font-weight:300;text-transform:none;letter-spacing:0;">(select all that apply)</span></label>
         <div class="options-grid cols-1" id="opts-blockers">
@@ -1569,7 +1569,7 @@ margin-bottom: 3px;
         <p class="error-msg" id="err-blockers">Please select at least one option.</p>
       </div>
 
-      <!-- ACT-64: Q11 Step 2 — optional text -->
+      
       <div class="field-group" style="margin-top:24px;">
         <label for="anythingElse">Anything else you'd like us to know? <span style="font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span></label>
         <textarea id="anythingElse" placeholder="Tell us what's on your mind — goals, concerns, or anything you want to cover on your call…"></textarea>
@@ -1582,8 +1582,8 @@ margin-bottom: 3px;
     </div>
   </div>
 
-  <!-- ═══════════════════ STEP 7 — LOCATION (ACT-583) ═══════════════════ -->
-  <!-- ACT-583: Preferred Investment Areas — qualification / deal-matching only. Never referenced in calcArchetype() or calcReadiness(). -->
+  
+  
   <div class="step" id="step-7">
     <div class="step-header">
       <span class="step-tag">Step 7 of 7 — Location</span>
@@ -1654,7 +1654,7 @@ margin-bottom: 3px;
     </div>
   </div>
 
-  <!-- ═══════════════════ LOADING ═══════════════════ -->
+  
 <div class="step" id="step-contact">
     <div class="step-header">
       <span class="step-tag">Almost there — unlock your results</span>
@@ -1682,7 +1682,7 @@ margin-bottom: 3px;
       <div class="field-group">
         <label>Mobile Number</label>
         <div id="phone-field-wrap">
-          <!-- Built by buildPhoneField() when contact step loads -->
+          
           <div class="pk-phone-wrap">
             <button type="button" class="pk-dial-btn" id="pk-dial-btn" onclick="toggleDialDropdown(event)">
               <span id="pk-dial-display">🇬🇧 +44</span>
@@ -1695,7 +1695,7 @@ margin-bottom: 3px;
         <p class="field-hint">Select your country, then enter your number — we work with investors worldwide 🌍</p>
         <p class="error-msg" id="err-mobile">Please enter a valid mobile number.</p>
       </div>
-      <!-- ACT-64: Consent checkbox -->
+      
       <div class="consent-wrap" id="consent-wrap" onclick="toggleConsent()">
         <div class="consent-box" id="consent-box"></div>
         <div class="consent-text">
@@ -1703,16 +1703,18 @@ margin-bottom: 3px;
           <small>We'll never share your details. You can unsubscribe at any time.</small>
         </div>
       </div>
+      <div id="assessment-verification" style="margin:16px 0"></div>
+      <p class="error-msg" id="err-submission" role="alert"></p>
       <p class="error-msg" id="err-consent">Please tick to confirm you're happy to receive your results.</p>
       <div class="btn-row">
-        <button class="btn btn-primary" onclick="submitQuiz()">Reveal My Results →</button>
+        <button class="btn btn-primary" id="assessment-submit-btn" onclick="submitQuiz()">Reveal My Results →</button>
         <button class="btn btn-secondary" onclick="showStep(7)">← Back</button>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════════════ STEP 2 — GOALS & OUTCOME ═══════════════════ -->
-  <!-- ACT-64: Q2 updated options + Q8 strategy→outcome (MAJOR CHANGE) -->
+  
+  
   
 
   <div id="loading-screen">
@@ -1720,13 +1722,13 @@ margin-bottom: 3px;
     <p>Calculating your investor profile…</p>
   </div>
 
-  <!-- ═══════════════════ RESULT ═══════════════════ -->
-  <!-- ACT-64: + urgency line + Your Next Step + What happens next + deals preview -->
+  
+  
   <div id="step-result">
     <div class="result-header">
       <div class="result-badge" id="result-badge">Your Investor Profile</div>
-      <h2 class="result-archetype" id="result-archetype">The Hands-Off Investor</h2>
-      <p class="result-tagline" id="result-tagline">Property income. Zero landlord stress.</p>
+      <h2 class="result-heading" id="result-heading">Your investment preferences</h2>
+      <p class="result-tagline" id="result-tagline">A summary of what matters to you</p>
       <div class="readiness-pill">
         <span class="score-num" id="result-score">0</span>
         <span class="score-label">Readiness<br/>Score /100</span>
@@ -1735,18 +1737,18 @@ margin-bottom: 3px;
     <div class="result-body">
       <p class="result-description" id="result-description"></p>
 
-      <!-- CTA box -->
+      
       <div class="result-cta-box">
-        <div class="hot-badge" id="cta-badge">🔥 Hot lead</div>
+        
         <h3 id="cta-title">Book Your Free Strategy Call</h3>
-        <p id="cta-text">You're ready to move. Let's get clear on your goals, your budget, and the exact deals that fit your criteria.</p>
+        <p id="cta-text">Talk through your goals, budget and preferred areas with Property Kickstart.</p>
         <a href="https://tidycal.com/propertykickstartuk" target="_blank" id="cta-btn" class="btn btn-cta">Book My Free Strategy Call →</a>
         <a href="https://www.propertykickstart.co.uk/" target="_blank" id="cta-btn-secondary" class="btn btn-cta-secondary">Explore Property Kickstart →</a>
-        <!-- ACT-64: Urgency line -->
-        <p class="result-urgency" id="result-urgency">Serious investors often speak with us within 24 hours.</p>
+        
+        
       </div>
 
-      <!-- ACT-64: Your Next Step section -->
+      
       <div class="result-steps-section" id="your-next-step">
         <h4>Your Next Step</h4>
         <div class="result-step-item">
@@ -1759,11 +1761,11 @@ margin-bottom: 3px;
         </div>
         <div class="result-step-item">
           <div class="result-step-num">3</div>
-          <div class="result-step-text">Secure your first property within 30–60 days</div>
+          <div class="result-step-text">Review an opportunity before deciding whether to proceed</div>
         </div>
       </div>
 
-      <!-- ACT-64: What happens next section -->
+      
       <div class="result-steps-section" id="what-happens-next">
         <h4>What happens next</h4>
         <div class="result-step-item">
@@ -1780,38 +1782,34 @@ margin-bottom: 3px;
         </div>
       </div>
 
-      <!-- ACT-64: Deals preview section (rendered dynamically) -->
-      <div class="deals-preview" id="deals-preview">
-        <h4>Deals we typically show investors like you</h4>
-        <div class="deal-row" id="deal-row"></div>
-      </div>
 
     </div>
   </div>
 
-</div><!-- /.quiz-card -->
-</div><!-- /.quiz-outer -->
+</div>
+</div>
 
 <footer>
   &copy; 2026 Property Kickstart Ltd · <a href="https://www.propertykickstart.co.uk/">propertykickstart.co.uk</a> ·
   <a href="https://www.propertykickstart.co.uk/privacy">Privacy Policy</a>
 </footer>
 
+<script type="module">
+import { createSubmissionSender } from "./quiz-submit-client.mjs";
+import { assessmentChallenge } from "./quiz-turnstile-client.mjs";
+let storage;
+try { storage = window.sessionStorage; } catch {}
+window.pkAssessmentChallenge = assessmentChallenge({siteKey:"0x4AAAAAAFglCeHXIX6Wb-s2"});
+window.pkSubmitAssessment = createSubmissionSender({endpoint:window.PK_ASSESSMENT_ENDPOINT,storage});
+</script>
 <script>
-// ═══════════════════════════════════════════════════════════
-// CONFIGURATION
-// ════════════════════════════════════════════════════════
-const PIPEDREAM_WEBHOOK_URL = 'https://eo7lfd8lwi1zkua.m.pipedream.net';
+window.PK_ASSESSMENT_ENDPOINT = 'https://pk-automation-staging.propertykickstartuk.workers.dev/assessment';
 const TIDYCAL_URL = 'https://tidycal.com/propertykickstartuk';
 
-// ════════════════════════════════════════════════════════
-// STATE
-// ════════════════════════════════════════════════════════
 let answers = {};
 let consentGiven = false;
 let currentStep = 0;
 const TOTAL_STEPS = 7;
-// ── Custom country code selector ──
 const COUNTRY_CODES = [
   {name:'United Kingdom',code:'GB',dial:'+44'},
   {name:'United States',code:'US',dial:'+1'},
@@ -1943,11 +1941,12 @@ function showContactStep() {
   document.getElementById('progress-wrap').style.display = 'none';
   window.scrollTo({ top: 0, behavior: 'smooth' });
   buildPhoneField();
+  window.pkAssessmentChallenge?.show().catch(()=>{
+    const error=document.getElementById('err-submission');
+    error.textContent='The security check could not load. Please refresh and try again.';error.classList.add('show');
+  });
 }
 
-// ═══════════════════════════════════════════════════════════
-// NAV
-// ════════════════════════════════════════════════════════
 function startQuiz() {
   document.getElementById('step-intro').classList.remove('active');
   document.getElementById('progress-wrap').style.display = 'block';
@@ -1979,9 +1978,6 @@ function goBack(step) {
   }
 }
 
-// ═══════════════════════════════════════════════════════════
-// CONSENT
-// ════════════════════════════════════════════════════════
 function toggleConsent() {
   consentGiven = !consentGiven;
   const wrap = document.getElementById('consent-wrap');
@@ -1994,9 +1990,6 @@ function toggleConsent() {
   if (err && consentGiven) err.classList.remove('show');
 }
 
-// ═══════════════════════════════════════════════════════════
-// OPTION SELECTION
-// ════════════════════════════════════════════════════════
 function selectOption(el) {
   const field = el.dataset.field;
   document.querySelectorAll(`.option-card[data-field="${field}"]`).forEach(c => c.classList.remove('selected'));
@@ -2015,9 +2008,6 @@ function toggleMulti(el) {
   if (err && selected.length > 0) err.classList.remove('show');
 }
 
-// ════════════════════════════════════════════════════════
-// VALIDATION
-// ════════════════════════════════════════════════════════
 function validate(step) {
   let ok = true;
 
@@ -2054,7 +2044,6 @@ function validate(step) {
     answers.anythingElse = document.getElementById('anythingElse').value.trim();
   }
 
-  // ACT-583: Preferred Investment Areas — required multi-select
   if (step === 7) {
     const preferredAreas = answers.preferredAreas || [];
     if (!preferredAreas.length) { showErr('preferredAreas'); ok = false; }
@@ -2075,168 +2064,7 @@ function nextStep(step) {
   }
 }
 
-// ════════════════════════════════════════════════════════
-// SCORING — updated for new field names (ACT-64)
-// outcome replaces strategy; priorities replaces riskAppetite
-// primaryGoal options updated
-// ═══════════════════════════════════════════════════════
-function calcArchetype(a) {
-  let h = 0, p = 0, c = 0, f = 0;
-
-  // ── The Hands-Off Investor ──
-  if (a.handsOnPreference === 'Completely hands-off') h += 3;
-  if (a.primaryGoal === 'Replace my income — financial freedom') h += 2;
-  if (a.outcome === 'Reliable monthly income') h += 2;
-  if (a.priorities === 'Stability and predictable income') h += 1;
-  if (a.financeMethod === 'Buy-to-let mortgage') h += 1;
-  if (a.timeline === '3–6 months') h += 1;
-
-  // ── The Portfolio Builder ──
-  if (a.financeMethod === 'Cash purchase' || a.financeMethod === 'Bridging finance') p += 3;
-  if (a.timeline === 'Right now' || a.timeline === 'Within 3 months') p += 2;
-  if (a.priorities === 'Maximum returns — I understand higher risk') p += 2;
-  if (a.primaryGoal === 'Generate short-term profit') p += 2;
-  if (a.outcome === 'Growth and profit — buy, refurbish, sell') p += 2;
-  if (a.experience === 'Experienced investor' || a.propertyOwnership === 'Own investment property') p += 1;
-
-  // ── The Cash Flow Seeker ──
-  if (a.primaryGoal === 'Build reliable monthly income') c += 3;
-  if (a.outcome === 'Higher cashflow opportunities') c += 3;
-  if (a.priorities === 'Strong returns with balanced risk') c += 1;
-  if (a.financeMethod === 'Buy-to-let mortgage') c += 1;
-  if (a.timeline === '3–6 months') c += 1;
-  if (a.handsOnPreference === 'Involved but guided' || a.handsOnPreference === 'Completely hands-off') c += 1;
-
-  // ── The Informed First-Timer ──
-  if (a.experience === 'No experience — first-time investor') f += 3;
-  if (a.financeInPlace === "No — I'd need guidance on this") f += 2;
-  if (a.priorities === 'Stability and predictable income') f += 1;
-  if (a.timeline === '6–12 months' || a.timeline === 'Over 12 months') f += 1;
-  if (a.primaryGoal === 'Create both income and long-term growth' || a.primaryGoal === 'Learn how to start investing properly') f += 1;
-  if (a.propertyOwnership === 'No investment property') f += 1;
-
-  // Tie-break: Hands-Off → Cash Flow → Portfolio → First-Timer
-  const max = Math.max(h, c, p, f);
-  if (h === max) return 'The Hands-Off Investor';
-  if (c === max) return 'The Cash Flow Seeker';
-  if (p === max) return 'The Portfolio Builder';
-  return 'The Informed First-Timer';
-}
-
-function calcReadiness(a) {
-  let score = 0;
-  if (a.financeInPlace === 'Yes') score += 30;
-  else if (a.financeInPlace === 'Actively arranging it') score += 20;
-  if (a.timeline === 'Right now' || a.timeline === 'Within 3 months') score += 25;
-  else if (a.timeline === '3–6 months') score += 15;
-  else if (a.timeline === '6–12 months') score += 5;
-  if (a.financeMethod === 'Cash purchase') score += 10;
-  if (a.experience === 'Experienced investor') score += 10;
-  if (a.propertyOwnership === 'Own investment property') score += 5;
-  if (a.outcome && a.outcome !== "I'm open — show me what works") score += 10;
-  const bigBudgets = ['£100k–£150k', '£150k–£250k', '£250k+'];
-  if (bigBudgets.includes(a.budget)) score += 10;
-  return Math.min(score, 100);
-}
-
-// ═══════════════════════════════════════════════════════════
-// ARCHETYPE CONTENT
-// ═══════════════════════════════════════════════════════════
-const archetypeContent = {
-  'The Hands-Off Investor': {
-    tagline: 'Property income. Zero landlord stress.',
-    description: `Based on your answers, you're <strong>The Hands-Off Investor</strong>.<br/><br/>
-You know exactly what you want from property — strong returns, reliable income, and a process you don't have to manage yourself. You're not here to become a landlord. You're here to build wealth intelligently, with a team that handles everything on your behalf.<br/><br/>
-That's exactly what Property Kickstart is built for. We source the deals, run the due diligence, introduce the right finance and legal partners, and guide you through every step — so you can move quickly and confidently without it taking over your life.`,
-    deals: [
-      { label: 'Strategy', value: 'Housing Association / HMO' },
-      { label: 'Yield Range', value: '7% – 10% gross' },
-      { label: 'Example Outcome', value: '£650–£900/mo net' }
-    ]
-  },
-  'The Portfolio Builder': {
-    tagline: 'Move fast. Build hard. Scale smart.',
-    description: `Based on your answers, you're <strong>The Portfolio Builder</strong>.<br/><br/>
-You've been here before — or you're ready to move like you have. You know the levers, you're not afraid of risk, and you're looking for deals with real margin, not just passive income. You want to build fast and build deliberately.<br/><br/>
-Property Kickstart works with Portfolio Builders to find the right opportunities — deals that stack up on the numbers, with the right financing structure and the headroom to scale. Let's talk about what your next acquisition looks like.`,
-    deals: [
-      { label: 'Strategy', value: 'Development / BRR' },
-      { label: 'Yield Range', value: '12%+ on money in' },
-      { label: 'Example Outcome', value: 'Equity uplift + refinance' }
-    ]
-  },
-  'The Cash Flow Seeker': {
-    tagline: 'Monthly income that works harder than you do.',
-    description: `Based on your answers, you're <strong>The Cash Flow Seeker</strong>.<br/><br/>
-You want property that pays you every month — predictably, reliably, without drama. You're not after a quick flip or a long-term gamble. You want deals that generate real cash flow from day one, with the kind of certainty that lets you plan.<br/><br/>
-Property Kickstart specialises in high-yield sourced deals — HMOs and Housing Association properties with strong monthly income built in. Your strategy call will focus on what's available, what it pays, and how to get it in your name quickly.`,
-    deals: [
-      { label: 'Strategy', value: 'HMO / Multi-let' },
-      { label: 'Yield Range', value: '9% – 12% gross' },
-      { label: 'Example Outcome', value: '£800–£1,200/mo net' }
-    ]
-  },
-  'The Informed First-Timer': {
-    tagline: 'Start right. Build smart. No guesswork.',
-    description: `Based on your answers, you're <strong>The Informed First-Timer</strong>.<br/><br/>
-You're not rushing — and that's exactly the right call. You've been doing your research, building your knowledge, and making sure you understand what you're getting into before you commit. That mindset will serve you well in property.<br/><br/>
-Property Kickstart works with first-time investors who want to start right — not just start quickly. Your strategy call is a no-pressure conversation about your goals, your questions, and the realistic path to your first deal.`,
-    deals: [
-      { label: 'Strategy', value: 'Buy to Let / HA' },
-      { label: 'Yield Range', value: '6% – 8% gross' },
-      { label: 'Example Outcome', value: 'Steady income + growth' }
-    ]
-  }
-};
-
-const PK_URL = 'https://www.propertykickstart.co.uk/';
-
-function getCTAContent(archetype, score) {
-  const isHandsOff = archetype === 'The Hands-Off Investor';
-
-  if (score >= 70 || isHandsOff) {
-    return {
-      badge: '🔥 Hot — You\'re Ready to Move',
-      title: 'Book Your Free Strategy Call',
-      text: 'Your profile is a strong match for our sourced deals. Let\'s get on a call this week — we\'ll match you to live opportunities that fit your exact criteria.',
-      btnText: 'Book My Free Strategy Call →',
-      btnUrl: TIDYCAL_URL,
-      secondaryText: 'Explore Property Kickstart →',
-      secondaryUrl: PK_URL,
-      showUrgency: true
-    };
-  } else if (score >= 40) {
-    return {
-      badge: '⚡ Warm — Good Momentum',
-      title: 'Explore What\'s Available',
-      text: 'You\'re building towards your first investment — we\'ll send you tailored content and deal insights that match your profile. When you\'re ready to move, we\'re here.',
-      btnText: 'Visit Property Kickstart →',
-      btnUrl: PK_URL,
-      secondaryText: null,
-      secondaryUrl: null,
-      showUrgency: false
-    };
-  } else {
-    return {
-      badge: '🌱 Early Stage — Let\'s Build Your Plan',
-      title: 'Start With the Right Foundation',
-      text: 'You\'re in the exploration phase — which is the perfect place to be. We\'ll send you the right guidance to move from curious to confident at your own pace.',
-      btnText: 'Explore Property Kickstart →',
-      btnUrl: PK_URL,
-      secondaryText: null,
-      secondaryUrl: null,
-      showUrgency: false
-    };
-  }
-}
-
-// ═══════════════════════════════════════════════════════════
-// SUBMIT
-// ════════════════════════════════════════════════════════
-
-
 async function submitQuiz() {
-  // Collect and validate contact details from step-contact
   const firstName = document.getElementById('firstName').value.trim();
   const lastName  = document.getElementById('lastName').value.trim();
   const email     = document.getElementById('email').value.trim();
@@ -2246,6 +2074,8 @@ async function submitQuiz() {
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('email'); ok = false; }
   if (!isValidMobile()) { showErr('mobile'); ok = false; }
   if (!consentGiven) { showErr('consent'); ok = false; }
+  const verificationToken=window.pkAssessmentChallenge?.token();
+  if(!verificationToken){const error=document.getElementById('err-submission');error.textContent='Please complete the security check before continuing.';error.classList.add('show');ok=false;}
   if (!ok) return;
   answers.firstName    = firstName;
   answers.lastName     = lastName;
@@ -2254,111 +2084,53 @@ async function submitQuiz() {
   answers.mobile       = getFullMobile();
   answers.consentGiven = consentGiven;
 
-  const btn = document.getElementById('submit-btn');
+  const btn = document.getElementById('assessment-submit-btn');
+  if (btn.disabled) return;
   btn.disabled = true;
+  document.getElementById('err-submission').classList.remove('show');
 
-  const investorType = calcArchetype(answers);
-  const readinessScore = calcReadiness(answers);
 
-  // ACT-583: preferredAreas is collected internally (camelCase, matching this
-  // codebase's convention) but is deliberately excluded from the "...answers"
-  // spread below and sent under the single required payload key
-  // "preferred_investment_areas" instead — never referenced in calcArchetype()
-  // or calcReadiness(), so it cannot affect scoring or archetype assignment.
   const { preferredAreas, ...restAnswers } = answers;
 
   const payload = {
     ...restAnswers,
     blockers: answers.blockers || [],
-    preferred_investment_areas: preferredAreas || [],
-    readinessScore,
-    investorType,
-    financeReady: answers.financeInPlace === 'Yes' || answers.financeInPlace === 'Actively arranging it',
-    cashBuyer: answers.financeMethod === 'Cash purchase',
-    handsOffFlag: answers.handsOnPreference === 'Completely hands-off',
-    sub50k: answers.budget === 'Under £50k'
+    preferred_investment_areas: preferredAreas || []
+
   };
 
-  // Show loading
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById('step-result').style.display = 'none';
   document.getElementById('loading-screen').classList.add('active');
   document.getElementById('progress-wrap').style.display = 'none';
 
-  // Fire webhook (non-blocking)
-  if (PIPEDREAM_WEBHOOK_URL && PIPEDREAM_WEBHOOK_URL !== 'YOUR_PIPEDREAM_WEBHOOK_URL_HERE') {
-    try {
-      await fetch(PIPEDREAM_WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-    } catch (e) {
-      console.warn('Webhook delivery failed:', e);
-    }
+  try {
+    if (typeof window.pkSubmitAssessment !== 'function') throw new Error('Submission unavailable');
+    const saved = await window.pkSubmitAssessment({...payload,verificationToken,consentTextVersion:'quiz-v1.5-2026-10-07'});
+    showAssessmentSummary(saved.result);
+  } catch {
+    document.getElementById('loading-screen').classList.remove('active');
+    document.getElementById('step-contact').classList.add('active');
+    const error = document.getElementById('err-submission');
+    error.textContent = "We couldn't save your assessment. Your answers are still here. Please try again.";
+    error.classList.add('show');
+    btn.disabled = false;
+    window.pkAssessmentChallenge?.reset();
   }
-
-  await new Promise(r => setTimeout(r, 1800));
-  showResult(investorType, readinessScore);
 }
 
-// ═══════════════════════════════════════════════════════════
-// SHOW RESULT
-// ═══════════════════════════════════════════════════════════
-function showResult(archetype, score) {
+function showAssessmentSummary(result) {
   document.getElementById('loading-screen').classList.remove('active');
-
-  const content = archetypeContent[archetype];
-  const cta = getCTAContent(archetype, score);
-
-  document.getElementById('result-archetype').textContent = archetype;
-  document.getElementById('result-tagline').textContent = content.tagline;
-  document.getElementById('result-description').innerHTML = content.description;
-  document.getElementById('result-score').textContent = score;
-  document.getElementById('cta-badge').textContent = cta.badge;
-  document.getElementById('cta-title').textContent = cta.title;
-  document.getElementById('cta-text').textContent = cta.text;
-
-  const ctaBtn = document.getElementById('cta-btn');
-  ctaBtn.textContent = cta.btnText;
-  ctaBtn.href = cta.btnUrl;
-
-  const secBtn = document.getElementById('cta-btn-secondary');
-  if (cta.secondaryText) {
-    secBtn.textContent = cta.secondaryText;
-    secBtn.href = cta.secondaryUrl;
-    secBtn.style.display = '';
-  } else {
-    secBtn.style.display = 'none';
-  }
-
-  // ACT-64: Urgency line
-  const urgency = document.getElementById('result-urgency');
-  urgency.style.display = cta.showUrgency ? 'block' : 'none';
-
-  // Score colour
-  const scoreEl = document.getElementById('result-score');
-  if (score >= 70) scoreEl.style.color = '#e87c6a';
-  else if (score >= 40) scoreEl.style.color = '#f0c060';
-  else scoreEl.style.color = '#a8c8a0';
-
-  // ACT-64: Deals preview
-  const dealRow = document.getElementById('deal-row');
-  dealRow.innerHTML = '';
-  content.deals.forEach(deal => {
-    dealRow.innerHTML += `
-      <div class="deal-chip">
-        <div class="deal-chip-label">${deal.label}</div>
-        <div class="deal-chip-value">${deal.value}</div>
-      </div>`;
-  });
-
+  document.getElementById('result-heading').textContent = 'Your investment preferences';
+  document.getElementById('result-tagline').textContent = 'A summary of what matters to you';
+  document.getElementById('result-description').textContent = `${result.firstName}, you told us your preferred outcome is ${answers.outcome.toLowerCase()}. Your priorities are ${answers.priorities.toLowerCase()}. You prefer to be ${answers.handsOnPreference.toLowerCase()}. Preferred areas: ${(answers.preferredAreas || []).join(', ')}.`;
+  document.getElementById('result-score').textContent = result.readinessScore;
   document.getElementById('step-result').style.display = 'block';
   document.getElementById('step-result').classList.add('active');
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
 
   </body>
 </html>
+
