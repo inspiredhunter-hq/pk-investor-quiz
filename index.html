@@ -1048,6 +1048,7 @@ margin-bottom: 3px;
 </style>
 </head>
 <body>
+<p role="status" style="background:#ffe8a3;color:#1d2630;text-align:center;padding:12px;margin:0">QA preview. Use fictitious details. Nothing is sent or saved.</p>
 
 <header>
   <div class="logo">Property <span>Kickstart</span></div>
@@ -1794,16 +1795,17 @@ margin-bottom: 3px;
   <a href="https://www.propertykickstart.co.uk/privacy">Privacy Policy</a>
 </footer>
 
-<script type="module">
-import { createSubmissionSender } from "./quiz-submit-client.mjs";
-import { assessmentChallenge } from "./quiz-turnstile-client.mjs";
-let storage;
-try { storage = window.sessionStorage; } catch {}
-window.pkAssessmentChallenge = assessmentChallenge({siteKey:"0x4AAAAAAFglCeHXIX6Wb-s2"});
-window.pkSubmitAssessment = createSubmissionSender({endpoint:window.PK_ASSESSMENT_ENDPOINT,storage});
+<script>
+window.pkAssessmentChallenge = {
+  show: async () => {},
+  token: () => 'local-qa-only',
+  reset: () => {}
+};
+window.pkSubmitAssessment = async (payload) => ({
+  result: { firstName: payload.firstName || 'Test investor', readinessScore: 'QA sample' }
+});
 </script>
 <script>
-window.PK_ASSESSMENT_ENDPOINT = 'https://pk-automation-staging.propertykickstartuk.workers.dev/assessment';
 const TIDYCAL_URL = 'https://tidycal.com/propertykickstartuk';
 
 let answers = {};
